@@ -16,6 +16,6 @@ class MediaAsset extends AssetBundle
     public $depends = [
         'yii\bootstrap\BootstrapAsset',
         'yii\web\JqueryAsset',
-        'yeesoft\base\YeeAsset'
+        'yeesoft\assets\YeeAsset'
     ];
 }
