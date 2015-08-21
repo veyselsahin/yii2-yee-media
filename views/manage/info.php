@@ -3,6 +3,7 @@
 use yeesoft\helpers\Html;
 use yeesoft\media\assets\MediaAsset;
 use yeesoft\media\MediaModule;
+use yeesoft\models\User;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -27,7 +28,7 @@ $bundle = MediaAsset::register($this);
 
 <?php
 $form = ActiveForm::begin([
-    'action' => ['manage/update', 'id' => $model->id],
+    'action' => ['/media/manage/update', 'id' => $model->id],
     'options' => ['id' => 'control-form'],
 ]);
 ?>
@@ -39,18 +40,12 @@ $form = ActiveForm::begin([
 
 <?php if ($model->isImage()) : ?>
     <div class="form-group<?= $strictThumb ? ' hidden' : '' ?>">
-        <?=
-        Html::label(MediaModule::t('main', 'Select image size'), 'image',
-            ['class' => 'control-label'])
-        ?>
+        <?= Html::label(MediaModule::t('main', 'Select image size'), 'image', ['class' => 'control-label']) ?>
 
-        <?=
-        Html::dropDownList('url', $model->getThumbUrl($strictThumb),
+        <?= Html::dropDownList('url', $model->getThumbUrl($strictThumb),
             $model->getImagesList($this->context->module),
-            [
-                'class' => 'form-control input-sm'
-            ])
-        ?>
+            ['class' => 'form-control input-sm']
+        ) ?>
         <div class="help-block"></div>
     </div>
 <?php else : ?>
@@ -59,28 +54,18 @@ $form = ActiveForm::begin([
 
 <?= Html::hiddenInput('id', $model->id) ?>
 
+<?php if (User::hasPermission('editMedia')): ?>
+    <?= Html::submitButton(MediaModule::t('main', 'Save'), ['class' => 'btn btn-primary']) ?>
+<?php endif; ?>
 
+<?= Html::button(MediaModule::t('main', 'Insert'), ['id' => 'insert-btn', 'class' => 'btn btn-primary']) ?>
 
-<?=
-Html::submitButton(MediaModule::t('main', 'Save'),
-    ['class' => 'btn btn-primary'])
-?>
-
-<?=
-Html::button(MediaModule::t('main', 'Insert'),
-    ['id' => 'insert-btn', 'class' => 'btn btn-primary'])
-?>
-
-<?=
-Html::a(MediaModule::t('main', 'Delete'), ['manage/delete/', 'id' => $model->id],
-    [
-        'class' => 'btn btn-default',
-        'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-        'data-id' => $model->id,
-        'role' => 'delete',
-    ]
-)
-?>
+<?= Html::a(MediaModule::t('main', 'Delete'), ['/media/manage/delete', 'id' => $model->id], [
+    'class' => 'btn btn-default',
+    'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+    'data-id' => $model->id,
+    'role' => 'delete',
+]) ?>
 
 <?php if ($message = Yii::$app->session->getFlash('mediafileUpdateResult')) : ?>
     <div class="text-success"><?= $message ?></div>

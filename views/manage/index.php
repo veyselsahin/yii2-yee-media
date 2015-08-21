@@ -2,6 +2,7 @@
 
 use yeesoft\helpers\Html;
 use yeesoft\media\assets\MediaAsset;
+use yeesoft\models\User;
 use yii\helpers\Url;
 use yii\widgets\ListView;
 
@@ -16,7 +17,7 @@ $this->params['moduleBundle'] = MediaAsset::register($this);
 
         <div class="panel panel-default">
             <div class="panel-body">
-                <div id="media" data-url-info="<?= Url::to(['manage/info']) ?>">
+                <div id="media" data-url-info="<?= Url::to(['/media/manage/info']) ?>">
                     <?=
                     ListView::widget([
                         'dataProvider' => $dataProvider,
@@ -42,14 +43,13 @@ $this->params['moduleBundle'] = MediaAsset::register($this);
     </div>
     <div class="col-sm-4">
 
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <?=
-                Html::a('Upload New File', ['manage/uploader'],
-                    ['class' => 'btn btn-primary'])
-                ?>
+        <?php if (User::hasPermission('uploadMedia')): ?>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <?= Html::a('Upload New File', ['/media/manage/uploader'], ['class' => 'btn btn-primary']) ?>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
 
         <div class="panel panel-default">
             <div class="panel-body">

@@ -6,6 +6,7 @@ use yeesoft\controllers\admin\BaseController;
 use yeesoft\media\assets\MediaAsset;
 use yeesoft\media\MediaModule;
 use yeesoft\media\models\Media;
+use yeesoft\models\User;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
@@ -14,6 +15,9 @@ use yii\web\Response;
 class ManageController extends BaseController
 {
     public $enableCsrfValidation = false;
+
+    public $disabledActions = ['view', 'create', 'toggle-attribute', 'bulk-activate',
+        'bulk-deactivate', 'bulk-delete', 'grid-sort', 'grid-page-size'];
 
     public function behaviors()
     {
@@ -30,6 +34,7 @@ class ManageController extends BaseController
 
     public function beforeAction($action)
     {
+        \Yii::$app->assetManager->forceCopy = true;
         return parent::beforeAction($action);
     }
 
@@ -95,11 +100,15 @@ class ManageController extends BaseController
         $model = Media::findOne($id);
         $message = MediaModule::t('main', 'Changes not saved.');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $message = MediaModule::t('main', 'Changes saved!');
-        }
+        if (User::hasPermission('editMedia')) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                $message = MediaModule::t('main', 'Changes saved!');
+            }
 
-        Yii::$app->session->setFlash('mediafileUpdateResult', $message);
+            Yii::$app->session->setFlash('mediaUpdateResult', $message);
+        } else {
+            die(MediaModule::t('main', 'You are not allowed to perform this action.'));
+        }
 
         return $this->renderPartial('info',
             [
@@ -120,14 +129,19 @@ class ManageController extends BaseController
 
         $model = Media::findOne($id);
 
-        if ($model->isImage()) {
-            $model->deleteThumbs($routes);
+        if (User::hasPermission('deleteMedia')) {
+            if ($model->isImage()) {
+                $model->deleteThumbs($routes);
+            }
+
+            $model->deleteFile($routes);
+            $model->delete();
+
+            return ['success' => 'true'];
+
+        } else {
+            die(MediaModule::t('main', 'You are not allowed to perform this action.'));
         }
-
-        $model->deleteFile($routes);
-        $model->delete();
-
-        return ['success' => 'true'];
     }
 
     /**

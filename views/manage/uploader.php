@@ -11,14 +11,11 @@ use yii\helpers\Html;
 <div class="panel panel-default">
     <div class="panel-body">
         <div id="uploadmanager">
-            <p><?=
-                Html::a('← ' . MediaModule::t('main', 'Back to file manager'),
-                    ['manage/index'])
-                ?>
+            <p>
+                <?= Html::a('← ' . MediaModule::t('main', 'Back to file manager'), ['manage/index']) ?>
             </p>
 
-            <?=
-            FileUploadUI::widget([
+            <?= FileUploadUI::widget([
                 'model' => $model,
                 'attribute' => 'file',
                 'formView' => '@vendor/yeesoft/yii2-yee-media/views/upload-widget/form',
@@ -29,8 +26,7 @@ use yii\helpers\Html;
                 ],
                 'url' => ['upload'],
                 'gallery' => false,
-            ])
-            ?>
+            ]) ?>
 
         </div>
     </div>

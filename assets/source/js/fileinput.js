@@ -2,7 +2,7 @@ function mediaTinyMCE(callback, value, meta) {
     var inputId = tinymce.activeEditor.settings.id,
         modal = $('[data-btn-id="' + inputId + '-btn"]'),
         iframe = $('<iframe src="' + modal.attr("data-frame-src")
-        + '" id="' + modal.attr("data-frame-id") + '" frameborder="0" role="media-frame"></iframe>');
+        + '?mode=modal" id="' + modal.attr("data-frame-id") + '" frameborder="0" role="media-frame"></iframe>');
 
     iframe.on("load", function () {
         var modal = $(this).parents('[role="media-modal"]'),

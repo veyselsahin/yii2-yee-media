@@ -21,8 +21,8 @@ ModalAsset::register($this);
         </div>
     </div>
 
-    <iframe src="<?= Url::to(['manage/index']) ?>" id="post-original_thumbnail-frame" scrolling="no" frameborder="0"
-            role="media-frame"></iframe>
+    <iframe src="<?= Url::to(['/media/manage/index']) ?>" id="post-original_thumbnail-frame" scrolling="no"
+            frameborder="0" role="media-frame"></iframe>
 
 </div>
 

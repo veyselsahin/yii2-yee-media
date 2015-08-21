@@ -3,6 +3,7 @@
 namespace yeesoft\media\widgets\dashboard;
 
 use yeesoft\media\models\Media as MediaModel;
+use yeesoft\models\User;
 
 class Media extends \yii\base\Widget
 {
@@ -34,14 +35,16 @@ class Media extends \yii\base\Widget
 
     public function run()
     {
-        $recent = MediaModel::find()->orderBy(['id' => SORT_DESC])->limit($this->recentLimit)->all();
+        if (User::hasPermission('viewMedia')) {
+            $recent = MediaModel::find()->orderBy(['id' => SORT_DESC])->limit($this->recentLimit)->all();
 
-        return $this->render('media',
-            [
-                'height' => $this->height,
-                'width' => $this->width,
-                'position' => $this->position,
-                'recent' => $recent,
-            ]);
+            return $this->render('media',
+                [
+                    'height' => $this->height,
+                    'width' => $this->width,
+                    'position' => $this->position,
+                    'recent' => $recent,
+                ]);
+        }
     }
 }
