@@ -11,7 +11,7 @@ Media module lets you easily upload and manage images and other files on your si
 Installation
 ------------
 
-Either run
+- Either run
 
 ```
 composer require --prefer-dist yeesoft/yii2-yee-media "*"
@@ -24,6 +24,12 @@ or add
 ```
 
 to the require section of your `composer.json` file.
+
+- Run migrations
+
+```php
+yii migrate --migrationPath=@vendor/yeesoft/yii2-yee-media/migrations/
+```
 
 Configuration
 ------
@@ -40,12 +46,6 @@ Configuration
         ],
     ],
 ],
-```
-
-- Run migrations
-
-```php
-yii migrate --migrationPath=@vendor/yeesoft/yii2-yee-media/migrations/
 ```
 
 Dashboard widget
