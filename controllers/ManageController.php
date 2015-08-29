@@ -34,7 +34,6 @@ class ManageController extends BaseController
 
     public function beforeAction($action)
     {
-        \Yii::$app->assetManager->forceCopy = true;
         return parent::beforeAction($action);
     }
 
