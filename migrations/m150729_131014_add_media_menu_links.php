@@ -17,7 +17,7 @@ class m150729_131014_add_media_menu_links extends Migration
                 'label' => 'Media', 'parent_id' => 'media', 'order' => 1]);
 
         $this->insert('menu_link',
-            ['id' => 'media-album', 'menu_id' => 'admin-main-menu', 'link' => '/menu/album/index',
+            ['id' => 'media-album', 'menu_id' => 'admin-main-menu', 'link' => '/media/album/index',
                 'label' => 'Albums', 'parent_id' => 'media', 'order' => 2]);
 
         $this->insert('menu_link', ['id' => 'image-settings', 'menu_id' => 'admin-main-menu', 'link' => '/media/default/settings', 'label' => 'Image Settings', 'parent_id' => 'settings', 'order' => 5]);
