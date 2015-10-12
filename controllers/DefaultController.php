@@ -19,4 +19,5 @@ class DefaultController extends BaseController
     {
         return $this->render('settings');
     }
+
 }

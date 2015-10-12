@@ -3,7 +3,6 @@
 use yeesoft\media\assets\ModalAsset;
 use yeesoft\media\MediaModule;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 
@@ -18,11 +17,11 @@ ModalAsset::register($this);
     <div class="row">
         <div class="col-sm-12">
             <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
+            <?= Html::a('Manage Albums', ['/media/album/index'], ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
 
-    <iframe src="<?= Url::to(['/media/manage/index']) ?>" id="post-original_thumbnail-frame" scrolling="no"
-            frameborder="0" role="media-frame"></iframe>
+    <?= yeesoft\media\widgets\Gallery::widget() ?>
 
 </div>
 

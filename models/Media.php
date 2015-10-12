@@ -3,7 +3,9 @@
 namespace yeesoft\media\models;
 
 use yeesoft\media\MediaModule;
+use yeesoft\models\User;
 use Yii;
+use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
@@ -16,15 +18,19 @@ use yii\web\UploadedFile;
  * This is the model class for table "media".
  *
  * @property integer $id
+ * @property integer $album_id
  * @property string $filename
  * @property string $type
  * @property string $url
+ * @property string $title
  * @property string $alt
  * @property integer $size
  * @property string $description
  * @property string $thumbs
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $created_by
+ * @property integer $updated_by
  */
 class Media extends ActiveRecord
 {
@@ -45,11 +51,11 @@ class Media extends ActiveRecord
     public function rules()
     {
         return [
-            [['filename', 'type', 'url', 'size'], 'required'],
-            [['url', 'alt', 'description', 'thumbs'], 'string'],
-            [['created_at', 'updated_at', 'size'], 'integer'],
-            [['filename', 'type'], 'string', 'max' => 255],
-            [['file'], 'file']
+            [['filename', 'type', 'size'], 'required'],
+            [['alt', 'description', 'thumbs'], 'string'],
+            [['created_by', 'updated_by', 'created_at', 'updated_at', 'size', 'album_id'], 'integer'],
+            [['filename', 'type', 'title'], 'string', 'max' => 255],
+            [['file'], 'file'],
         ];
     }
 
@@ -60,15 +66,19 @@ class Media extends ActiveRecord
     {
         return [
             'id' => MediaModule::t('main', 'ID'),
+            'album_id' => MediaModule::t('main', 'Album'),
             'filename' => MediaModule::t('main', 'filename'),
             'type' => MediaModule::t('main', 'Type'),
-            'url' => MediaModule::t('main', 'Url'),
-            'alt' => MediaModule::t('main', 'Alt attribute'),
+            'url' => MediaModule::t('main', 'URL'),
+            'title' => MediaModule::t('main', 'Title'),
+            'alt' => MediaModule::t('main', 'Alt Text'),
             'size' => MediaModule::t('main', 'Size'),
             'description' => MediaModule::t('main', 'Description'),
             'thumbs' => MediaModule::t('main', 'Thumbnails'),
-            'created_at' => MediaModule::t('main', 'Created'),
+            'created_at' => MediaModule::t('main', 'Uploaded'),
             'updated_at' => MediaModule::t('main', 'Updated'),
+            'created_by' => MediaModule::t('main', 'Uploaded By'),
+            'updated_by' => MediaModule::t('main', 'Updated By'),
         ];
     }
 
@@ -78,18 +88,24 @@ class Media extends ActiveRecord
     public function behaviors()
     {
         return [
-            'timestamp' => [
-                'class' => TimestampBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => 'created_at',
-                    ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at',
-                ],
-            ]
+            BlameableBehavior::className(),
+            TimestampBehavior::className(),
         ];
     }
 
     /**
+     * Return created_by user instance
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuthor()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    /**
      * Save just uploaded file
+     *
      * @param array $routes routes from module settings
      * @return bool
      */

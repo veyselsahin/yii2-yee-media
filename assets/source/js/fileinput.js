@@ -27,8 +27,8 @@ function mediaTinyMCE(callback, value, meta) {
 function getFormData(form) {
     var formArray = form.serializeArray(),
         modelMap = {
-            'Image[alt]': 'alt',
-            'Image[description]': 'description',
+            'Media[alt]': 'alt',
+            'Media[description]': 'description',
             url: 'url',
             id: 'id'
         },
@@ -72,7 +72,7 @@ $(document).ready(function () {
 
         var modal = $('[data-btn-id="' + $(this).attr("id") + '"]'),
             iframe = $('<iframe src="' + modal.attr("data-frame-src")
-            + '" id="' + modal.attr("data-frame-id") + '" frameborder="0" role="media-frame"></iframe>');
+            + '?mode=modal" id="' + modal.attr("data-frame-id") + '" frameborder="0" role="media-frame"></iframe>');
 
         iframe.on("load", frameHandler);
         modal.find(".modal-body").html(iframe);

@@ -15,7 +15,6 @@ use yii\web\Response;
 class ManageController extends BaseController
 {
     public $enableCsrfValidation = false;
-
     public $disabledActions = ['view', 'create', 'toggle-attribute', 'bulk-activate',
         'bulk-deactivate', 'bulk-delete', 'grid-sort', 'grid-page-size'];
 
@@ -40,22 +39,22 @@ class ManageController extends BaseController
     public function actionIndex()
     {
         $this->layout = '@vendor/yeesoft/yii2-yee-media/views/layouts/main';
-        $model = new Media();
-        $dataProvider = $model->search();
-        $dataProvider->pagination->defaultPageSize = 15;
 
-        return $this->render('index',
-            [
-                'model' => $model,
-                'dataProvider' => $dataProvider,
-            ]
-        );
+        return $this->render('index');
     }
 
     public function actionUploader()
     {
-        $this->layout = '@vendor/yeesoft/yii2-yee-media/views/layouts/main';
-        return $this->render('uploader', ['model' => new Media()]);
+        $mode = Yii::$app->getRequest()->get('mode', 'normal');
+
+        if ($mode == 'modal') {
+            $this->layout = '@vendor/yeesoft/yii2-yee-media/views/layouts/main';
+        }
+
+        return $this->render('uploader', [
+            'mode' => $mode,
+            'model' => new Media(),
+        ]);
     }
 
     /**
@@ -109,11 +108,10 @@ class ManageController extends BaseController
             die(MediaModule::t('main', 'You are not allowed to perform this action.'));
         }
 
-        return $this->renderPartial('info',
-            [
-                'model' => $model,
-                'strictThumb' => null,
-            ]);
+        return $this->renderPartial('info', [
+            'model' => $model,
+            'strictThumb' => null,
+        ]);
     }
 
     /**
@@ -137,7 +135,6 @@ class ManageController extends BaseController
             $model->delete();
 
             return ['success' => 'true'];
-
         } else {
             die(MediaModule::t('main', 'You are not allowed to perform this action.'));
         }
@@ -170,10 +167,9 @@ class ManageController extends BaseController
     public function actionInfo($id, $strictThumb = null)
     {
         $model = Media::findOne($id);
-        return $this->renderPartial('info',
-            [
-                'model' => $model,
-                'strictThumb' => $strictThumb,
-            ]);
+        return $this->renderPartial('info', [
+            'model' => $model,
+            'strictThumb' => $strictThumb,
+        ]);
     }
 }

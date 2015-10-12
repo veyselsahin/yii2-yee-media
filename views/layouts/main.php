@@ -1,4 +1,5 @@
 <?php
+
 use yeesoft\media\assets\MediaAsset;
 use yii\helpers\Html;
 
@@ -15,6 +16,28 @@ MediaAsset::register($this);
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
+        <style type="text/css">
+            body {
+                overflow-x: hidden;
+            }
+            .col-sm-12 .panel {
+                margin-bottom: 10px;
+            }
+            .col-sm-12 .panel .panel-body {
+                height: 60px !important;
+            }
+            .panel {
+                margin-bottom: 0px;
+            }
+            .row {
+                margin-left: -5px;
+                margin-right: -5px;
+            }
+            .col-sm-8, .col-sm-4, .col-sm-12 {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        </style>
     </head>
     <body>
     <?php $this->beginBody() ?>

@@ -32,23 +32,20 @@ $(document).ready(function () {
 
         $(".item a").removeClass("active");
         $(this).addClass("active");
+
         var id = $(this).attr("data-key"),
-            url = $("#media").attr("data-url-info");
+            url = $("#media").attr("data-url-info"),
+            mode = $("#media").attr("data-frame-mode");
 
         ajaxRequest = $.ajax({
             type: "GET",
             url: url,
-            data: "id=" + id + "&strictThumb=" + strictThumb,
+            data: "id=" + id + "&strictThumb=" + strictThumb + "&mode=" + mode,
             beforeSend: function () {
                 setAjaxLoader();
             },
             success: function (html) {
                 $("#fileinfo").html(html);
-
-                if (getUrlParameter('mode') !== 'modal') {
-                    $("#insert-btn").remove();
-                }
-                ;
             }
         });
     });
@@ -58,7 +55,7 @@ $(document).ready(function () {
 
         var url = $(this).attr("href"),
             id = $(this).attr("data-id"),
-            confirmMessage = $(this).attr("data-confirm");
+            confirmMessage = $(this).attr("data-message");
 
         $.ajax({
             type: "POST",
