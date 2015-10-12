@@ -26,7 +26,6 @@ class m150628_124401_create_media_table extends Migration
 
         $this->createTable('media_category', [
             'id' => 'pk',
-            'category_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
             'slug' => Schema::TYPE_STRING . '(255) DEFAULT NULL',
             'title' => Schema::TYPE_STRING . '(255) NOT NULL',
             'visible' => Schema::TYPE_INTEGER . " NOT NULL DEFAULT '1' COMMENT '0-hidden,1-visible'",
