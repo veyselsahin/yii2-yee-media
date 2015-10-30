@@ -50,7 +50,7 @@ class MediaSearch extends Media
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params = [])
     {
         $query = Media::find();
 
