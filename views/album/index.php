@@ -2,10 +2,11 @@
 
 use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
-use yeesoft\helpers\Html;
+use yeesoft\media\MediaModule;
 use yeesoft\media\models\Album;
 use yeesoft\media\models\Category;
 use yeesoft\Yee;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 
@@ -13,8 +14,8 @@ use yii\widgets\Pjax;
 /* @var $searchModel yeesoft\media\models\AlbumSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Albums';
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Media'), 'url' => ['/media']];
+$this->title = MediaModule::t('media', 'Albums');
+$this->params['breadcrumbs'][] = ['label' => MediaModule::t('media', 'Media'), 'url' => ['/media']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="album-index">
@@ -22,8 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-sm-12">
             <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
-            <?= Html::a('Add New', ['/media/album/create'], ['class' => 'btn btn-sm btn-primary']) ?>
-            <?= Html::a('Manage Categories', ['/media/category/index'], ['class' => 'btn btn-sm btn-primary']) ?>
+            <?= Html::a(Yee::t('yee', 'Add New'), ['/media/album/create'], ['class' => 'btn btn-sm btn-primary']) ?>
+            <?= Html::a(MediaModule::t('media', 'Manage Categories'), ['/media/category/index'], ['class' => 'btn btn-sm btn-primary']) ?>
         </div>
     </div>
 
@@ -44,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'bulkActionOptions' => [
                     'gridId' => 'album-grid',
-                    'actions' => [Url::to(['bulk-delete']) => 'Delete'],
+                    'actions' => [Url::to(['bulk-delete']) => Yee::t('yee', 'Delete')],
                 ],
                 'columns' => [
                     ['class' => 'yii\grid\CheckboxColumn', 'options' => ['style' => 'width:10px']],

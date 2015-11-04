@@ -52,7 +52,7 @@ class MediaSearch extends Media
      */
     public function search($params = [])
     {
-        $query = Media::find();
+        $query = Media::find()->joinWith('translations');;
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

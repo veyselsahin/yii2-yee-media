@@ -2,8 +2,11 @@
 
 namespace yeesoft\media\models;
 
+use omgdef\multilingual\MultilingualQuery;
+use yeesoft\behaviors\MultilingualBehavior;
 use yeesoft\media\MediaModule;
 use yeesoft\models\User;
+use yeesoft\Yee;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -65,20 +68,20 @@ class Media extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => MediaModule::t('main', 'ID'),
-            'album_id' => MediaModule::t('main', 'Album'),
-            'filename' => MediaModule::t('main', 'filename'),
-            'type' => MediaModule::t('main', 'Type'),
-            'url' => MediaModule::t('main', 'URL'),
-            'title' => MediaModule::t('main', 'Title'),
-            'alt' => MediaModule::t('main', 'Alt Text'),
-            'size' => MediaModule::t('main', 'Size'),
-            'description' => MediaModule::t('main', 'Description'),
-            'thumbs' => MediaModule::t('main', 'Thumbnails'),
-            'created_at' => MediaModule::t('main', 'Uploaded'),
-            'updated_at' => MediaModule::t('main', 'Updated'),
-            'created_by' => MediaModule::t('main', 'Uploaded By'),
-            'updated_by' => MediaModule::t('main', 'Updated By'),
+            'id' => Yee::t('yee', 'ID'),
+            'album_id' => MediaModule::t('media', 'Album'),
+            'filename' => MediaModule::t('media', 'Filename'),
+            'type' => Yee::t('yee', 'Type'),
+            'url' => Yee::t('yee', 'URL'),
+            'title' => Yee::t('yee', 'Title'),
+            'alt' => MediaModule::t('media', 'Alt Text'),
+            'size' => Yee::t('yee', 'Size'),
+            'description' => Yee::t('yee', 'Description'),
+            'thumbs' => MediaModule::t('media', 'Thumbnails'),
+            'created_at' => Yee::t('yee', 'Uploaded'),
+            'updated_at' => Yee::t('yee', 'Updated'),
+            'created_by' => MediaModule::t('media', 'Uploaded By'),
+            'updated_by' => MediaModule::t('media', 'Updated By'),
         ];
     }
 
@@ -90,6 +93,14 @@ class Media extends ActiveRecord
         return [
             BlameableBehavior::className(),
             TimestampBehavior::className(),
+            'multilingual' => [
+                'class' => MultilingualBehavior::className(),
+                'langForeignKey' => 'media_id',
+                'tableName' => "{{%media_lang}}",
+                'attributes' => [
+                    'title', 'description', 'alt',
+                ]
+            ],
         ];
     }
 
@@ -293,11 +304,11 @@ class Media extends ActiveRecord
 
         foreach ($thumbs as $alias => $url) {
             $preset = $module->thumbs[$alias];
-            $list[$url] = $preset['name'] . ' ' . $preset['size'][0] . ' × ' . $preset['size'][1];
+            $list[$url] = MediaModule::t('media', $preset['name']) . ' ' . $preset['size'][0] . ' × ' . $preset['size'][1];
         }
 
         $originalImageSize = $this->getOriginalImageSize($module->routes);
-        $list[$this->url] = MediaModule::t('main', 'Original') . ' ' . $originalImageSize;
+        $list[$this->url] = MediaModule::t('media', 'Original') . ' ' . $originalImageSize;
 
         return $list;
     }
@@ -326,21 +337,6 @@ class Media extends ActiveRecord
     {
         $basePath = Yii::getAlias($routes['basePath']);
         return unlink("$basePath/{$this->url}");
-    }
-
-    /**
-     * Creates data provider instance with search query applied
-     * @return ActiveDataProvider
-     */
-    public function search()
-    {
-        $query = self::find()->orderBy('created_at DESC');
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
-        return $dataProvider;
     }
 
     /**
@@ -414,5 +410,10 @@ class Media extends ActiveRecord
     {
         $format = Yii::$app->settings->get('general.dateformat') . ' ' . Yii::$app->settings->get('general.timeformat');
         return date($format, ($this->isNewRecord) ? time() : $this->created_at);
+    }
+
+    public static function find()
+    {
+        return new MultilingualQuery(get_called_class());
     }
 }

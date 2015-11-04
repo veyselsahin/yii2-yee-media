@@ -63,23 +63,29 @@ class MediaModule extends \yii\base\Module
 
     public function registerTranslations()
     {
-        Yii::$app->i18n->translations['media/*'] = [
+        Yii::$app->i18n->translations['yii2-yee-media/*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
             'sourceLanguage' => 'en-US',
             'basePath' => '@vendor/yeesoft/yii2-yee-media/messages',
             'fileMap' => [
-                'modules/media/main' => 'main.php',
+                'yii2-yee-media/media' => 'media.php',
             ],
         ];
     }
 
+    /**
+     * I18N helper
+     *
+     * @param string $category
+     * @param string $message
+     * @param array $params
+     * @param null|string $language
+     *
+     * @return string
+     */
     public static function t($category, $message, $params = [], $language = null)
     {
-        if (!isset(Yii::$app->i18n->translations['media/*'])) {
-            return $message;
-        }
-
-        return Yii::t("media/$category", $message, $params, $language);
+        return Yii::t('yii2-yee-media/' . $category, $message, $params, $language);
     }
 
     /**

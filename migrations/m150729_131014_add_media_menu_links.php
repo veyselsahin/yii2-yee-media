@@ -20,12 +20,17 @@ class m150729_131014_add_media_menu_links extends Migration
             ['id' => 'media-album', 'menu_id' => 'admin-main-menu', 'link' => '/media/album/index',
                 'label' => 'Albums', 'parent_id' => 'media', 'order' => 2]);
 
+        $this->insert('menu_link',
+            ['id' => 'media-category', 'menu_id' => 'admin-main-menu', 'link' => '/media/category/index',
+                'label' => 'Categories', 'parent_id' => 'media', 'order' => 3]);
+
         $this->insert('menu_link', ['id' => 'image-settings', 'menu_id' => 'admin-main-menu', 'link' => '/media/default/settings', 'label' => 'Image Settings', 'parent_id' => 'settings', 'order' => 5]);
     }
 
     public function down()
     {
         $this->delete('menu_link', ['like', 'id', 'image-settings']);
+        $this->delete('menu_link', ['like', 'id', 'media-category']);
         $this->delete('menu_link', ['like', 'id', 'media-album']);
         $this->delete('menu_link', ['like', 'id', 'media-media']);
         $this->delete('menu_link', ['like', 'id', 'media']);

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $searchModel yeesoft\media\models\Media */
 
-$this->title = MediaModule::t('main', 'Upload New File');
+$this->title = MediaModule::t('media', 'Upload New File');
 
 if ($mode !== 'modal') {
     $this->params['breadcrumbs'][] = $this->title;
@@ -18,7 +18,7 @@ if ($mode !== 'modal') {
     <div class="panel-body">
         <div id="uploadmanager">
             <p>
-                <?= Html::a('← ' . MediaModule::t('main', 'Back to file manager'), ($mode == 'modal') ? ['manage/index', 'mode' => 'modal'] : ['default/index']) ?>
+                <?= Html::a('← ' . MediaModule::t('media', 'Back to file manager'), ($mode == 'modal') ? ['manage/index', 'mode' => 'modal'] : ['default/index']) ?>
             </p>
 
             <?= FileUploadUI::widget([

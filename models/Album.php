@@ -2,6 +2,10 @@
 
 namespace yeesoft\media\models;
 
+use omgdef\multilingual\MultilingualQuery;
+use yeesoft\behaviors\MultilingualBehavior;
+use yeesoft\media\MediaModule;
+use yeesoft\Yee;
 use yii\behaviors\SluggableBehavior;
 use yii\helpers\ArrayHelper;
 
@@ -54,9 +58,17 @@ class Album extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            [
+            'sluggable' => [
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'title',
+            ],
+            'multilingual' => [
+                'class' => MultilingualBehavior::className(),
+                'langForeignKey' => 'media_album_id',
+                'tableName' => "{{%media_album_lang}}",
+                'attributes' => [
+                    'title', 'description',
+                ]
             ],
         ];
     }
@@ -67,12 +79,12 @@ class Album extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'category_id' => 'Category',
-            'slug' => 'Slug',
-            'title' => 'Title',
-            'visible' => 'Visible',
-            'description' => 'Description',
+            'id' => Yee::t('yee', 'ID'),
+            'category_id' => MediaModule::t('media', 'Category'),
+            'slug' => Yee::t('yee', 'Slug'),
+            'title' => Yee::t('yee', 'Title'),
+            'visible' => Yee::t('yee', 'Visible'),
+            'description' => Yee::t('yee', 'Description'),
         ];
     }
 
@@ -105,5 +117,10 @@ class Album extends \yii\db\ActiveRecord
             }
             return $result;
         }
+    }
+
+    public static function find()
+    {
+        return new MultilingualQuery(get_called_class());
     }
 }

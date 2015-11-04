@@ -3,6 +3,7 @@
 use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
+use yeesoft\media\MediaModule;
 use yeesoft\media\models\Category;
 use yeesoft\Yee;
 use yii\helpers\Url;
@@ -12,18 +13,19 @@ use yii\widgets\Pjax;
 /* @var $searchModel yeesoft\media\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Categories';
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Media'), 'url' => ['/media']];
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Albums'), 'url' => ['/media/album/index']];
+$this->title = MediaModule::t('media', 'Categories');
+$this->params['breadcrumbs'][] = ['label' => MediaModule::t('media', 'Media'), 'url' => ['/media']];
+$this->params['breadcrumbs'][] = ['label' => MediaModule::t('media', 'Albums'), 'url' => ['/media/album/index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="media-category-index">
 
     <div class="row">
         <div class="col-sm-12">
             <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
-            <?= Html::a('Add New', ['/media/category/create'], ['class' => 'btn btn-sm btn-primary']) ?>
-            <?= Html::a('Manage Albums', ['/media/album/index'], ['class' => 'btn btn-sm btn-primary']) ?>
+            <?= Html::a(Yee::t('yee', 'Add New'), ['/media/category/create'], ['class' => 'btn btn-sm btn-primary']) ?>
+            <?= Html::a(MediaModule::t('media', 'Manage Albums'), ['/media/album/index'], ['class' => 'btn btn-sm btn-primary']) ?>
         </div>
     </div>
 
@@ -44,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'bulkActionOptions' => [
                     'gridId' => 'media-category-grid',
-                    'actions' => [Url::to(['bulk-delete']) => 'Delete'] //Configure here you bulk actions
+                    'actions' => [Url::to(['bulk-delete']) => Yee::t('yee', 'Delete')]
                 ],
                 'columns' => [
                     ['class' => 'yii\grid\CheckboxColumn', 'options' => ['style' => 'width:10px']],

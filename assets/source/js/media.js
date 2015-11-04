@@ -46,6 +46,7 @@ $(document).ready(function () {
             },
             success: function (html) {
                 $("#fileinfo").html(html);
+                $(document).trigger("mediaDetailsLoaded");
             }
         });
     });
@@ -91,6 +92,7 @@ $(document).ready(function () {
             },
             success: function (html) {
                 $("#fileinfo").html(html);
+                $(document).trigger("mediaDetailsLoaded");
             }
         });
     });

@@ -1,16 +1,17 @@
 <?php
 
+use yeesoft\media\MediaModule;
 use yeesoft\Yee;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model yeesoft\media\models\Category */
 
-$this->title = 'Create Category';
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Media'), 'url' => ['/media']];
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Albums'), 'url' => ['/media/album/index']];
-$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Create';
+$this->title = MediaModule::t('media', 'Create Category');
+$this->params['breadcrumbs'][] = ['label' => MediaModule::t('media', 'Media'), 'url' => ['/media']];
+$this->params['breadcrumbs'][] = ['label' => MediaModule::t('media', 'Albums'), 'url' => ['/media/album/index']];
+$this->params['breadcrumbs'][] = ['label' => MediaModule::t('media', 'Categories'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = Yee::t('yee', 'Create');
 ?>
 
 <div class="media-category-create">

@@ -1,11 +1,14 @@
 <?php
 
+use yeesoft\assets\LanguagePillsAsset;
 use yeesoft\media\assets\MediaAsset;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 
+LanguagePillsAsset::register($this);
 MediaAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -20,19 +23,24 @@ MediaAsset::register($this);
             body {
                 overflow-x: hidden;
             }
+
             .col-sm-12 .panel {
                 margin-bottom: 10px;
             }
+
             .col-sm-12 .panel .panel-body {
                 height: 60px !important;
             }
+
             .panel {
                 margin-bottom: 0px;
             }
+
             .row {
                 margin-left: -5px;
                 margin-right: -5px;
             }
+
             .col-sm-8, .col-sm-4, .col-sm-12 {
                 padding-left: 5px;
                 padding-right: 5px;
@@ -47,4 +55,4 @@ MediaAsset::register($this);
     <?php $this->endBody() ?>
     </body>
     </html>
-<?php $this->endPage() ?>
+<?php $this->endPage();

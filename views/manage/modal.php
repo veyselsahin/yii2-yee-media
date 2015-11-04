@@ -1,4 +1,4 @@
-<div role="media-modal" class="modal" tabindex="-1"
+<div role="media-modal" class="modal" tabindex="-1" style="z-index:9999999"
      data-frame-id="<?= $frameId ?>"
      data-frame-src="<?= $frameSrc ?>"
      data-btn-id="<?= $btnId ?>"

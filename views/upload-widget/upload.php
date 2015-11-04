@@ -10,25 +10,26 @@
             <strong class="error text-danger"></strong>
         </td>
         <td>
-            <p class="size"><?= Yii::t('fileupload', 'Processing') ?>...</p>
+            <p class="size"><?= \yeesoft\Yee::t('yee', 'Processing') ?>...</p>
             <div class="progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-primary" style="width:0%;"></div></div>
         </td>
         <td>
             {% if (!i && !o.options.autoUpload) { %}
                 <button class="btn btn-primary start" disabled>
                     <i class="glyphicon glyphicon-upload"></i>
-                    <span><?= Yii::t('fileupload', 'Start') ?></span>
+                    <span><?= \yeesoft\Yee::t('yee', 'Start') ?></span>
                 </button>
             {% } %}
             {% if (!i) { %}
                 <button class="btn btn-default cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span><?= Yii::t('fileupload', 'Cancel') ?></span>
+                    <span><?= \yeesoft\Yee::t('yee', 'Cancel') ?></span>
                 </button>
             {% } %}
         </td>
     </tr>
 {% } %}
+
 
 
 

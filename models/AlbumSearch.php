@@ -40,7 +40,7 @@ class AlbumSearch extends Album
      */
     public function search($params)
     {
-        $query = Album::find();
+        $query = Album::find()->joinWith('translations');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
