@@ -4,7 +4,7 @@ namespace yeesoft\media\models;
 
 use omgdef\multilingual\MultilingualQuery;
 use yeesoft\behaviors\MultilingualBehavior;
-use yeesoft\Yee;
+use Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\helpers\ArrayHelper;
 
@@ -77,11 +77,11 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yee::t('yee', 'ID'),
-            'slug' => Yee::t('yee', 'Slug'),
-            'title' => Yee::t('yee', 'Title'),
-            'visible' => Yee::t('yee', 'Visible'),
-            'description' => Yee::t('yee', 'Description'),
+            'id' => Yii::t('yee', 'ID'),
+            'slug' => Yii::t('yee', 'Slug'),
+            'title' => Yii::t('yee', 'Title'),
+            'visible' => Yii::t('yee', 'Visible'),
+            'description' => Yii::t('yee', 'Description'),
         ];
     }
 

@@ -2,10 +2,13 @@
 
 namespace yeesoft\media;
 
-use Yii;
-
 class MediaModule extends \yii\base\Module
 {
+    /**
+     * Version number of the module.
+     */
+    const VERSION = '0.1-a';
+
     public $controllerNamespace = 'yeesoft\media\controllers';
 
     /**
@@ -54,39 +57,6 @@ class MediaModule extends \yii\base\Module
      * @var array default thumbnail size, using in media view.
      */
     private static $defaultThumbSize = [128, 128];
-
-    public function init()
-    {
-        parent::init();
-        $this->registerTranslations();
-    }
-
-    public function registerTranslations()
-    {
-        Yii::$app->i18n->translations['yii2-yee-media/*'] = [
-            'class' => 'yii\i18n\PhpMessageSource',
-            'sourceLanguage' => 'en-US',
-            'basePath' => '@vendor/yeesoft/yii2-yee-media/messages',
-            'fileMap' => [
-                'yii2-yee-media/media' => 'media.php',
-            ],
-        ];
-    }
-
-    /**
-     * I18N helper
-     *
-     * @param string $category
-     * @param string $message
-     * @param array $params
-     * @param null|string $language
-     *
-     * @return string
-     */
-    public static function t($category, $message, $params = [], $language = null)
-    {
-        return Yii::t('yii2-yee-media/' . $category, $message, $params, $language);
-    }
 
     /**
      * @return array default thumbnail size. Using in media view.

@@ -3,9 +3,7 @@
 use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
-use yeesoft\media\MediaModule;
 use yeesoft\media\models\Category;
-use yeesoft\Yee;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 
@@ -13,9 +11,9 @@ use yii\widgets\Pjax;
 /* @var $searchModel yeesoft\media\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = MediaModule::t('media', 'Categories');
-$this->params['breadcrumbs'][] = ['label' => MediaModule::t('media', 'Media'), 'url' => ['/media']];
-$this->params['breadcrumbs'][] = ['label' => MediaModule::t('media', 'Albums'), 'url' => ['/media/album/index']];
+$this->title = Yii::t('yee/media', 'Categories');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/media', 'Media'), 'url' => ['/media/default/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/media', 'Albums'), 'url' => ['/media/album/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -24,8 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-sm-12">
             <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
-            <?= Html::a(Yee::t('yee', 'Add New'), ['/media/category/create'], ['class' => 'btn btn-sm btn-primary']) ?>
-            <?= Html::a(MediaModule::t('media', 'Manage Albums'), ['/media/album/index'], ['class' => 'btn btn-sm btn-primary']) ?>
+            <?= Html::a(Yii::t('yee', 'Add New'), ['/media/category/create'], ['class' => 'btn btn-sm btn-primary']) ?>
+            <?= Html::a(Yii::t('yee/media', 'Manage Albums'), ['/media/album/index'], ['class' => 'btn btn-sm btn-primary']) ?>
         </div>
     </div>
 
@@ -46,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'bulkActionOptions' => [
                     'gridId' => 'media-category-grid',
-                    'actions' => [Url::to(['bulk-delete']) => Yee::t('yee', 'Delete')]
+                    'actions' => [Url::to(['bulk-delete']) => Yii::t('yee', 'Delete')]
                 ],
                 'columns' => [
                     ['class' => 'yii\grid\CheckboxColumn', 'options' => ['style' => 'width:10px']],

@@ -1,14 +1,13 @@
 <?php
 
-use yeesoft\media\MediaModule;
-use yeesoft\Yee;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model yeesoft\media\models\Album */
 
-$this->title = Yee::t('yee', 'Create {item}', ['item' => MediaModule::t('media', 'Album')]);
-$this->params['breadcrumbs'][] = ['label' => MediaModule::t('media', 'Albums'), 'url' => ['index']];
+$this->title = Yii::t('yee', 'Create {item}', ['item' => Yii::t('yee/media', 'Album')]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/media', 'Media'), 'url' => ['/media/default/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/media', 'Albums'), 'url' => ['/media/album/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

@@ -6,11 +6,9 @@ use omgdef\multilingual\MultilingualQuery;
 use yeesoft\behaviors\MultilingualBehavior;
 use yeesoft\media\MediaModule;
 use yeesoft\models\User;
-use yeesoft\Yee;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
@@ -68,20 +66,20 @@ class Media extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yee::t('yee', 'ID'),
-            'album_id' => MediaModule::t('media', 'Album'),
-            'filename' => MediaModule::t('media', 'Filename'),
-            'type' => Yee::t('yee', 'Type'),
-            'url' => Yee::t('yee', 'URL'),
-            'title' => Yee::t('yee', 'Title'),
-            'alt' => MediaModule::t('media', 'Alt Text'),
-            'size' => Yee::t('yee', 'Size'),
-            'description' => Yee::t('yee', 'Description'),
-            'thumbs' => MediaModule::t('media', 'Thumbnails'),
-            'created_at' => Yee::t('yee', 'Uploaded'),
-            'updated_at' => Yee::t('yee', 'Updated'),
-            'created_by' => MediaModule::t('media', 'Uploaded By'),
-            'updated_by' => MediaModule::t('media', 'Updated By'),
+            'id' => Yii::t('yee', 'ID'),
+            'album_id' => Yii::t('yee/media', 'Album'),
+            'filename' => Yii::t('yee/media', 'Filename'),
+            'type' => Yii::t('yee', 'Type'),
+            'url' => Yii::t('yee', 'URL'),
+            'title' => Yii::t('yee', 'Title'),
+            'alt' => Yii::t('yee/media', 'Alt Text'),
+            'size' => Yii::t('yee', 'Size'),
+            'description' => Yii::t('yee', 'Description'),
+            'thumbs' => Yii::t('yee/media', 'Thumbnails'),
+            'created_at' => Yii::t('yee', 'Uploaded'),
+            'updated_at' => Yii::t('yee', 'Updated'),
+            'created_by' => Yii::t('yee/media', 'Uploaded By'),
+            'updated_by' => Yii::t('yee/media', 'Updated By'),
         ];
     }
 
@@ -304,11 +302,11 @@ class Media extends ActiveRecord
 
         foreach ($thumbs as $alias => $url) {
             $preset = $module->thumbs[$alias];
-            $list[$url] = MediaModule::t('media', $preset['name']) . ' ' . $preset['size'][0] . ' × ' . $preset['size'][1];
+            $list[$url] = Yii::t('yee/media', $preset['name']) . ' ' . $preset['size'][0] . ' × ' . $preset['size'][1];
         }
 
         $originalImageSize = $this->getOriginalImageSize($module->routes);
-        $list[$this->url] = MediaModule::t('media', 'Original') . ' ' . $originalImageSize;
+        $list[$this->url] = Yii::t('yee/media', 'Original') . ' ' . $originalImageSize;
 
         return $list;
     }

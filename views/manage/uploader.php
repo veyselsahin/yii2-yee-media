@@ -1,13 +1,12 @@
 <?php
 
 use dosamigos\fileupload\FileUploadUI;
-use yeesoft\media\MediaModule;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel yeesoft\media\models\Media */
 
-$this->title = MediaModule::t('media', 'Upload New File');
+$this->title = Yii::t('yee/media', 'Upload New File');
 
 if ($mode !== 'modal') {
     $this->params['breadcrumbs'][] = $this->title;
@@ -18,7 +17,7 @@ if ($mode !== 'modal') {
     <div class="panel-body">
         <div id="uploadmanager">
             <p>
-                <?= Html::a('← ' . MediaModule::t('media', 'Back to file manager'), ($mode == 'modal') ? ['manage/index', 'mode' => 'modal'] : ['default/index']) ?>
+                <?= Html::a('← ' . Yii::t('yee/media', 'Back to file manager'), ($mode == 'modal') ? ['manage/index', 'mode' => 'modal'] : ['default/index']) ?>
             </p>
 
             <?= FileUploadUI::widget([

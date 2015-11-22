@@ -2,7 +2,7 @@
 namespace yeesoft\media\widgets;
 
 use yeesoft\media\assets\FileInputAsset;
-use yeesoft\Yee;
+use Yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\InputWidget;
@@ -124,7 +124,7 @@ class FileInput extends InputWidget
             $this->buttonOptions['id'] = $this->options['id'] . '-btn';
         }
 
-        $this->buttonName = Yee::t('yee', 'Browse');
+        $this->buttonName = Yii::t('yee', 'Browse');
         $this->buttonOptions['role'] = 'media-launch';
         $this->resetButtonOptions['role'] = 'clear-input';
         $this->resetButtonOptions['data-clear-element-id'] = $this->options['id'];

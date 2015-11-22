@@ -1,6 +1,5 @@
 <?php
 /** @var \dosamigos\fileupload\FileUploadUI $this */
-use yeesoft\media\MediaModule;
 use yii\helpers\Html;
 
 $context = $this->context;
@@ -13,7 +12,7 @@ $context = $this->context;
             <!-- The fileinput-button span is used to style the file input field as button -->
             <span class="btn btn-primary fileinput-button">
                 <i class="glyphicon glyphicon-plus"></i>
-                <span><?= MediaModule::t('media', 'Add files') ?>...</span>
+                <span><?= Yii::t('yee/media', 'Add files') ?>...</span>
 
                 <?= $context->model instanceof \yii\base\Model && $context->attribute !== null
                     ? Html::activeFileInput($context->model, $context->attribute, $context->fieldOptions)
@@ -22,11 +21,11 @@ $context = $this->context;
             </span>
             <button type="submit" class="btn btn-primary start">
                 <i class="glyphicon glyphicon-upload"></i>
-                <span><?= MediaModule::t('media', 'Start upload') ?></span>
+                <span><?= Yii::t('yee/media', 'Start upload') ?></span>
             </button>
             <button type="reset" class="btn btn-default cancel">
                 <i class="glyphicon glyphicon-ban-circle"></i>
-                <span><?= MediaModule::t('media', 'Cancel upload') ?></span>
+                <span><?= Yii::t('yee/media', 'Cancel upload') ?></span>
             </button>
             <!-- The global file processing state -->
             <span class="fileupload-process"></span>

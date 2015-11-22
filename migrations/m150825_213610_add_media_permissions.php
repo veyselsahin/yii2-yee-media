@@ -50,7 +50,7 @@ class m150825_213610_add_media_permissions extends Migration
         $this->insert('auth_item', ['name' => 'editMediaSettings', 'type' => '2', 'description' => 'Edit media settings', 'group_code' => 'mediaManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
         $this->insert('auth_item', ['name' => 'uploadMedia', 'type' => '2', 'description' => 'Upload media', 'group_code' => 'mediaManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
         $this->insert('auth_item', ['name' => 'viewMedia', 'type' => '2', 'description' => 'View media', 'group_code' => 'mediaManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'accessAllMedia', 'type' => '2', 'description' => 'Manage other users\' media', 'group_code' => 'mediaManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
+        $this->insert('auth_item', ['name' => 'fullMediaAccess', 'type' => '2', 'description' => 'Manage other users\' media', 'group_code' => 'mediaManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
 
         $this->insert('auth_item', ['name' => 'viewMediaAlbums', 'type' => '2', 'description' => 'View media albums', 'group_code' => 'mediaManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
         $this->insert('auth_item', ['name' => 'editMediaAlbums', 'type' => '2', 'description' => 'Edit media albums', 'group_code' => 'mediaManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
@@ -112,7 +112,7 @@ class m150825_213610_add_media_permissions extends Migration
         $this->insert('auth_item_child', ['parent' => 'author', 'child' => 'viewMedia']);
         $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'deleteMedia']);
         $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'deleteMenuLinks']);
-        $this->insert('auth_item_child', ['parent' => 'moderator', 'child' => 'accessAllMedia']);
+        $this->insert('auth_item_child', ['parent' => 'moderator', 'child' => 'fullMediaAccess']);
 
         $this->insert('auth_item_child', ['parent' => 'author', 'child' => 'viewMediaAlbums']);
         $this->insert('auth_item_child', ['parent' => 'moderator', 'child' => 'createMediaAlbums']);
@@ -132,7 +132,7 @@ class m150825_213610_add_media_permissions extends Migration
         $this->delete('auth_item_child', ['parent' => 'author', 'child' => 'viewMedia']);
         $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'deleteMedia']);
         $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'deleteMenuLinks']);
-        $this->delete('auth_item_child', ['parent' => 'moderator', 'child' => 'accessAllMedia']);
+        $this->delete('auth_item_child', ['parent' => 'moderator', 'child' => 'fullMediaAccess']);
 
         $this->delete('auth_item_child', ['parent' => 'author', 'child' => 'viewMediaAlbums']);
         $this->delete('auth_item_child', ['parent' => 'moderator', 'child' => 'createMediaAlbums']);
@@ -229,7 +229,7 @@ class m150825_213610_add_media_permissions extends Migration
         $this->delete('auth_item', ['name' => 'editMediaSettings']);
         $this->delete('auth_item', ['name' => 'uploadMedia']);
         $this->delete('auth_item', ['name' => 'viewMedia']);
-        $this->delete('auth_item', ['name' => 'accessAllMedia']);
+        $this->delete('auth_item', ['name' => 'fullMediaAccess']);
 
         $this->delete('auth_item', ['name' => 'viewMediaAlbums']);
         $this->delete('auth_item', ['name' => 'editMediaAlbums']);

@@ -96,16 +96,16 @@ class ManageController extends BaseController
     public function actionUpdate($id)
     {
         $model = Media::findOne($id);
-        $message = MediaModule::t('main', 'Changes not saved.');
+        $message = Yii::t('yee/media', "Changes haven't been saved.");
 
         if (User::hasPermission('editMedia')) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                $message = MediaModule::t('main', 'Changes saved!');
+                $message = Yii::t('yee/media', "Changes have been saved.");
             }
 
             Yii::$app->session->setFlash('mediaUpdateResult', $message);
         } else {
-            die(MediaModule::t('main', 'You are not allowed to perform this action.'));
+            die(Yii::t('yii', 'You are not allowed to perform this action.'));
         }
 
         return $this->renderPartial('info', [
@@ -136,7 +136,7 @@ class ManageController extends BaseController
 
             return ['success' => 'true'];
         } else {
-            die(MediaModule::t('main', 'You are not allowed to perform this action.'));
+            die(Yii::t('yii', 'You are not allowed to perform this action.'));
         }
     }
 

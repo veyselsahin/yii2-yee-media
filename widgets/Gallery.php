@@ -34,7 +34,7 @@ class Gallery extends \yii\base\Widget
 
 
         $restrictAccess = (YeeHelper::isImplemented($modelClass, OwnerAccess::class)
-            && !User::hasPermission($modelClass::getOwnerAccessPermission()));
+            && !User::hasPermission($modelClass::getFullAccessPermission()));
 
         $searchName = StringHelper::basename($searchModel::className());
         $params = Yii::$app->request->getQueryParams();
