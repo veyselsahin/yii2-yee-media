@@ -3,6 +3,8 @@
 namespace yeesoft\media\widgets;
 
 use yeesoft\helpers\YeeHelper;
+use yeesoft\models\OwnerAccess;
+use yeesoft\models\User;
 use Yii;
 use yii\grid\GridViewAsset;
 use yii\helpers\StringHelper;
@@ -31,7 +33,6 @@ class Gallery extends \yii\base\Widget
         GridViewAsset::register($view);
         $options = '{"filterUrl":"' . \yii\helpers\Url::to(['default/index']) . '","filterSelector":"#gallery-grid-filters input, #gallery-grid-filters select"}';
         $view->registerJs("jQuery('#gallery').yiiGridView($options);");
-
 
         $restrictAccess = (YeeHelper::isImplemented($modelClass, OwnerAccess::class)
             && !User::hasPermission($modelClass::getFullAccessPermission()));

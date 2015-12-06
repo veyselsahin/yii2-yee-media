@@ -66,18 +66,30 @@ $form = ActiveForm::begin([
 
 <?php if ($mode !== 'modal'): ?>
 
-    <?= $form->field($model, 'album_id')->dropDownList(ArrayHelper::merge([NULL => Yii::t('yee', 'Not Selected')], Album::getAlbums(true, true))) ?>
-
-    <?= $form->field($model, 'title')->textInput(['class' => 'form-control input-sm']); ?>
+    <?php if (User::hasPermission('editMedia')): ?>
+        <?= $form->field($model, 'album_id')->dropDownList(ArrayHelper::merge([NULL => Yii::t('yee', 'Not Selected')], Album::getAlbums(true, true))) ?>
+        <?= $form->field($model, 'title')->textInput(['class' => 'form-control input-sm']); ?>
+    <?php else: ?>
+        <?= $form->field($model, 'album_id')->dropDownList(ArrayHelper::merge([NULL => Yii::t('yee', 'Not Selected')], Album::getAlbums(true, true)), ['readonly' => 'readonly']) ?>
+        <?= $form->field($model, 'title')->textInput(['class' => 'form-control input-sm', 'readonly' => 'readonly']); ?>
+    <?php endif; ?>
 
 <?php endif; ?>
 
 <?php if ($model->isImage()) : ?>
-    <?= $form->field($model, 'alt')->textInput(['class' => 'form-control input-sm']); ?>
+    <?php if (User::hasPermission('editMedia')): ?>
+        <?= $form->field($model, 'alt')->textInput(['class' => 'form-control input-sm']); ?>
+    <?php else: ?>
+        <?= $form->field($model, 'alt')->textInput(['class' => 'form-control input-sm', 'readonly' => 'readonly']); ?>
+    <?php endif; ?>
 <?php endif; ?>
 
 <?php if ($mode !== 'modal'): ?>
-    <?= $form->field($model, 'description')->textarea(['class' => 'form-control input-sm']); ?>
+    <?php if (User::hasPermission('editMedia')): ?>
+        <?= $form->field($model, 'description')->textarea(['class' => 'form-control input-sm']); ?>
+    <?php else: ?>
+        <?= $form->field($model, 'description')->textarea(['class' => 'form-control input-sm', 'readonly' => 'readonly']); ?>
+    <?php endif; ?>
 <?php endif; ?>
 
 <?php if ($model->isImage() && ($mode == 'modal')) : ?>

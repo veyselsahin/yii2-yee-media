@@ -17,8 +17,8 @@ class CategorySearch extends Category
     public function rules()
     {
         return [
-            [['id', 'visible'], 'integer'],
-            [['slug', 'title', 'description'], 'safe'],
+            [['id', 'visible', 'created_by', 'updated_by'], 'integer'],
+            [['slug', 'title', 'description', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -63,6 +63,10 @@ class CategorySearch extends Category
         $query->andFilterWhere([
             'id' => $this->id,
             'visible' => $this->visible,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'slug', $this->slug])

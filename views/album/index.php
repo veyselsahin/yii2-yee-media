@@ -1,10 +1,10 @@
 <?php
 
-use webvimark\extensions\GridPageSize\GridPageSize;
+use yeesoft\grid\GridPageSize;
 use yeesoft\grid\GridView;
+use yeesoft\helpers\Html;
 use yeesoft\media\models\Album;
 use yeesoft\media\models\Category;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
                         'controller' => '/media/album',
                         'title' => function (Album $model) {
-                            return Html::a($model->title, ['update', 'id' => $model->id], ['data-pjax' => 0]);
+                            return Html::a($model->title, ['/media/album/update', 'id' => $model->id], ['data-pjax' => 0]);
                         },
                         'buttonsTemplate' => '{update} {delete}',
                     ],

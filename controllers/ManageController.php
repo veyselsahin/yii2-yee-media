@@ -4,23 +4,25 @@ namespace yeesoft\media\controllers;
 
 use yeesoft\controllers\admin\BaseController;
 use yeesoft\media\assets\MediaAsset;
-use yeesoft\media\MediaModule;
 use yeesoft\media\models\Media;
 use yeesoft\models\User;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Response;
 
 class ManageController extends BaseController
 {
+    public $modelClass = 'yeesoft\media\models\Media';
+
     public $enableCsrfValidation = false;
     public $disabledActions = ['view', 'create', 'toggle-attribute', 'bulk-activate',
         'bulk-deactivate', 'bulk-delete', 'grid-sort', 'grid-page-size'];
 
     public function behaviors()
     {
-        return [
+        return ArrayHelper::merge(parent::behaviors(), [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -28,7 +30,7 @@ class ManageController extends BaseController
                     'update' => ['post'],
                 ],
             ],
-        ];
+        ]);
     }
 
     public function beforeAction($action)

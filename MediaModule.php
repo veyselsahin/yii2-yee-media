@@ -1,7 +1,17 @@
 <?php
+/**
+ * @link http://www.yee-soft.com/
+ * @copyright Copyright (c) 2015 Taras Makitra
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ */
 
 namespace yeesoft\media;
 
+/**
+ * Media Module For Yee CMS
+ *
+ * @author Taras Makitra <makitrataras@gmail.com>
+ */
 class MediaModule extends \yii\base\Module
 {
     /**

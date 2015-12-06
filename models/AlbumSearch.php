@@ -17,8 +17,8 @@ class AlbumSearch extends Album
     public function rules()
     {
         return [
-            [['id', 'category_id', 'visible'], 'integer'],
-            [['slug', 'title', 'description'], 'safe'],
+            [['id', 'category_id', 'visible', 'created_by', 'updated_by'], 'integer'],
+            [['slug', 'title', 'description', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -64,6 +64,10 @@ class AlbumSearch extends Album
             'id' => $this->id,
             'category_id' => $this->category_id,
             'visible' => $this->visible,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'slug', $this->slug])

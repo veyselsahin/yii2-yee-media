@@ -63,13 +63,14 @@
     margin-top: 10px;
 }
 
-.dashboard {
+.media-details .dashboard {
     width: 290px;
     float: left;
     padding-left: 10px;
+    margin-top: 0 !important;
 }
 
-.dashboard .loading {
+.media-details .dashboard .loading {
     width: 298px;
     margin-top: 50px;
     font-size: 5em;

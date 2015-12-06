@@ -2,33 +2,11 @@
 
 namespace yeesoft\media\models;
 
-use Yii;
-use yii\behaviors\TimestampBehavior;
+use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yii\db\ActiveRecord;
-use yii\helpers\Html;
-use yii\helpers\Inflector;
-use yii\imagine\Image as Imagine;
-use yii\web\UploadedFile;
 
 /**
- * This is the model class for table "media".
- *
- * @property integer $id
- * @property integer $album_id
- * @property integer $author_id
- * @property string $filename
- * @property string $type
- * @property string $url
- * @property string $title
- * @property string $alt
- * @property integer $size
- * @property string $description
- * @property string $thumbs
- * @property integer $created_at
- * @property integer $updated_at
- * @property integer $created_by
- * @property integer $updated_by
+ * MediaSearch represents the model behind the search form about `yeesoft\media\models\Media`.
  */
 class MediaSearch extends Media
 {
@@ -44,6 +22,15 @@ class MediaSearch extends Media
     }
 
     /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
      * Creates data provider instance with search query applied
      *
      * @param array $params
@@ -52,7 +39,7 @@ class MediaSearch extends Media
      */
     public function search($params = [])
     {
-        $query = Media::find()->joinWith('translations');;
+        $query = Media::find()->joinWith('translations');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -71,6 +58,9 @@ class MediaSearch extends Media
 
         $query->andFilterWhere([
             'album_id' => $this->album_id,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
+            'updated_at' => $this->updated_at,
         ]);
 
 

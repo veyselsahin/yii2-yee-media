@@ -4,8 +4,12 @@ namespace yeesoft\media\models;
 
 use omgdef\multilingual\MultilingualQuery;
 use yeesoft\behaviors\MultilingualBehavior;
+use yeesoft\models\OwnerAccess;
 use Yii;
+use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -16,8 +20,12 @@ use yii\helpers\ArrayHelper;
  * @property string $title
  * @property integer $visible
  * @property string $description
+ * @property integer $created_at
+ * @property integer $updated_at
+ * @property integer $created_by
+ * @property integer $updated_by
  */
-class Category extends \yii\db\ActiveRecord
+class Category extends ActiveRecord implements OwnerAccess
 {
 
     /**
@@ -43,8 +51,8 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['visible'], 'integer'],
             [['title'], 'required'],
+            [['created_by', 'updated_by', 'created_at', 'updated_at', 'visible'], 'integer'],
             [['description'], 'string'],
             [['slug', 'title'], 'string', 'max' => 255],
         ];
@@ -56,6 +64,8 @@ class Category extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
+            BlameableBehavior::className(),
+            TimestampBehavior::className(),
             'sluggable' => [
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'title',
@@ -82,6 +92,10 @@ class Category extends \yii\db\ActiveRecord
             'title' => Yii::t('yee', 'Title'),
             'visible' => Yii::t('yee', 'Visible'),
             'description' => Yii::t('yee', 'Description'),
+            'created_by' => Yii::t('yee', 'Created By'),
+            'updated_by' => Yii::t('yee', 'Updated By'),
+            'created_at' => Yii::t('yee', 'Created'), '',
+            'updated_at' => Yii::t('yee', 'Updated'),
         ];
     }
 
@@ -109,5 +123,23 @@ class Category extends \yii\db\ActiveRecord
     public static function find()
     {
         return new MultilingualQuery(get_called_class());
+    }
+
+    /**
+     *
+     * @inheritdoc
+     */
+    public static function getFullAccessPermission()
+    {
+        return 'fullMediaCategoryAccess';
+    }
+
+    /**
+     *
+     * @inheritdoc
+     */
+    public static function getOwnerField()
+    {
+        return 'created_by';
     }
 }

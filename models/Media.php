@@ -5,6 +5,7 @@ namespace yeesoft\media\models;
 use omgdef\multilingual\MultilingualQuery;
 use yeesoft\behaviors\MultilingualBehavior;
 use yeesoft\media\MediaModule;
+use yeesoft\models\OwnerAccess;
 use yeesoft\models\User;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -33,7 +34,7 @@ use yii\web\UploadedFile;
  * @property integer $created_by
  * @property integer $updated_by
  */
-class Media extends ActiveRecord
+class Media extends ActiveRecord implements OwnerAccess
 {
     public $file;
     public static $imageFileTypes = ['image/gif', 'image/jpeg', 'image/png'];
@@ -373,8 +374,8 @@ class Media extends ActiveRecord
      */
     public function getFileSize()
     {
-        Yii::$app->formatter->sizeFormatBase = 1000;
-        return Yii::$app->formatter->asShortSize($this->size, 0);
+        Yii::$app->formatter->sizeFormatBase = 1024;
+        return Yii::$app->formatter->asShortSize($this->size, 1);
     }
 
     /**
@@ -400,18 +401,39 @@ class Media extends ActiveRecord
 
     public function getCreatedDate()
     {
-        return date(Yii::$app->settings->get('general.dateformat'),
-            ($this->isNewRecord) ? time() : $this->created_at);
+        return Yii::$app->formatter->asDate(($this->isNewRecord) ? time() : $this->created_at);
     }
 
-    public function getCreatedDateTime()
+    public function getCreatedTime()
     {
-        $format = Yii::$app->settings->get('general.dateformat') . ' ' . Yii::$app->settings->get('general.timeformat');
-        return date($format, ($this->isNewRecord) ? time() : $this->created_at);
+        return Yii::$app->formatter->asTime(($this->isNewRecord) ? time() : $this->created_at);
+    }
+
+    public function getCreatedDatetime()
+    {
+        return "{$this->createdDate} {$this->createdTime}";
     }
 
     public static function find()
     {
         return new MultilingualQuery(get_called_class());
+    }
+
+    /**
+     *
+     * @inheritdoc
+     */
+    public static function getFullAccessPermission()
+    {
+        return 'fullMediaAccess';
+    }
+
+    /**
+     *
+     * @inheritdoc
+     */
+    public static function getOwnerField()
+    {
+        return 'created_by';
     }
 }

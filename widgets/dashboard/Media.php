@@ -4,25 +4,10 @@ namespace yeesoft\media\widgets\dashboard;
 
 use yeesoft\media\models\Media as MediaModel;
 use yeesoft\models\User;
+use yeesoft\widgets\DashboardWidget;
 
-class Media extends \yii\base\Widget
+class Media extends DashboardWidget
 {
-    /**
-     * Widget Height
-     */
-    public $height = 'auto';
-
-    /**
-     * Widget Width
-     */
-    public $width = '4';
-
-    /**
-     *
-     * @var type
-     */
-    public $position = 'left';
-
     /**
      * Most recent post limit
      */

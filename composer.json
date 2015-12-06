@@ -1,11 +1,11 @@
 {
   "name": "yeesoft/yii2-yee-media",
-  "description": "Yee Media Manager",
-  "license": "BSD-3-Clause",
+  "description": "Media Module For Yee CMS",
+  "license": "Apache-2.0",
   "authors": [
     {
-      "name": "YeeSoft",
-      "email": "yeesoft@gmail.com"
+      "name": "Taras Makitra",
+      "email": "makitrataras@gmail.com"
     }
   ],
   "minimum-stability": "dev",
