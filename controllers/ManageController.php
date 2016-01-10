@@ -97,7 +97,12 @@ class ManageController extends BaseController
      */
     public function actionUpdate($id)
     {
-        $model = Media::findOne($id);
+        $tableName = Media::tableName();
+
+        /**
+         * @var yeesoft\media\models\Media
+         */
+        $model = Media::findOne(["{$tableName}.id" => $id]);
         $message = Yii::t('yee/media', "Changes haven't been saved.");
 
         if (User::hasPermission('editMedia')) {
@@ -126,7 +131,12 @@ class ManageController extends BaseController
         Yii::$app->response->format = Response::FORMAT_JSON;
         $routes = $this->module->routes;
 
-        $model = Media::findOne($id);
+        $tableName = Media::tableName();
+
+        /**
+         * @var yeesoft\media\models\Media
+         */
+        $model = Media::findOne(["{$tableName}.id" => $id]);
 
         if (User::hasPermission('deleteMedia')) {
             if ($model->isImage()) {
@@ -168,7 +178,13 @@ class ManageController extends BaseController
      */
     public function actionInfo($id, $strictThumb = null)
     {
-        $model = Media::findOne($id);
+        $tableName = Media::tableName();
+        
+        /**
+         * @var yeesoft\media\models\Media
+         */
+        $model = Media::findOne(["{$tableName}.id" => $id]);
+
         return $this->renderPartial('info', [
             'model' => $model,
             'strictThumb' => $strictThumb,

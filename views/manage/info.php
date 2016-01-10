@@ -58,11 +58,11 @@ $form = ActiveForm::begin([
 ]);
 ?>
 
-<?= $form->field($model, 'url')->textInput([
+<?php /*echo $form->field($model, 'url')->textInput([
     'class' => 'form-control input-sm',
     'readonly' => 'readonly',
     'value' => Yii::$app->urlManager->hostInfo . $model->url,
-]); ?>
+]);*/ ?>
 
 <?php if ($mode !== 'modal'): ?>
 

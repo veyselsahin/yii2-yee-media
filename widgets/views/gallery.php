@@ -9,11 +9,14 @@ use yii\helpers\Url;
 use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
+use yii\grid\GridViewAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel yeesoft\media\models\Media */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $this->params['moduleBundle'] = MediaAsset::register($this);
+
+GridViewAsset::register($this);
 ?>
 
 <div class="row">
@@ -24,6 +27,7 @@ $this->params['moduleBundle'] = MediaAsset::register($this);
                 <?php
                 $form = ActiveForm::begin([
                     'id' => 'gallery',
+                    'action' => Url::to(['/media/default/index']),
                     'method' => 'get',
                     'class' => 'gridview-filter-form',
                     'fieldConfig' => ['template' => "{input}\n{hint}\n{error}"],
@@ -109,4 +113,10 @@ $this->params['moduleBundle'] = MediaAsset::register($this);
     </div>
 </div>
 
+<?php
 
+    //Init AJAX filter submit
+    $options = '{"filterUrl":"' . Url::to(['default/index']) . '","filterSelector":"#gallery-grid-filters input, #gallery-grid-filters select"}';
+    $this->registerJs("jQuery('#gallery').yiiGridView($options);");
+
+?>

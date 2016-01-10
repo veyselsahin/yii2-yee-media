@@ -53,7 +53,7 @@ class Media extends ActiveRecord implements OwnerAccess
     public function rules()
     {
         return [
-            [['filename', 'type', 'size'], 'required'],
+            [['filename', 'type'], 'required'],
             [['alt', 'description', 'thumbs'], 'string'],
             [['created_by', 'updated_by', 'created_at', 'updated_at', 'size', 'album_id'], 'integer'],
             [['filename', 'type', 'title'], 'string', 'max' => 255],
@@ -101,6 +101,24 @@ class Media extends ActiveRecord implements OwnerAccess
                 ]
             ],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     * @return static|null ActiveRecord instance matching the condition, or `null` if nothing matches.
+     */
+    public static function findOne($condition)
+    {
+        return static::findByCondition($condition)->joinWith('translations')->one();
+    }
+
+    /**
+     * @inheritdoc
+     * @return static[] an array of ActiveRecord instances, or an empty array if nothing matches.
+     */
+    public static function findAll($condition)
+    {
+        return static::findByCondition($condition)->joinWith('translations')->all();
     }
 
     /**
