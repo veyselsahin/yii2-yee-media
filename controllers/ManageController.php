@@ -179,7 +179,7 @@ class ManageController extends BaseController
     public function actionInfo($id, $strictThumb = null)
     {
         $tableName = Media::tableName();
-        
+
         /**
          * @var yeesoft\media\models\Media
          */

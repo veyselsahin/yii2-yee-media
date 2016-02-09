@@ -32,9 +32,9 @@ class TinyMce extends InputWidget
         'height' => 300,
         'image_dimensions' => true,
         'plugins' => [
-            'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code contextmenu table wordcount',
+            'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code contextmenu table wordcount pagebreak',
         ],
-        'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | table | code',
+        'toolbar' => 'undo redo | styleselect bold italic | alignleft aligncenter alignright alignjustify bullist numlist outdent indent | pagebreak link image table | code',
     ];
 
     /**

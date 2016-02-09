@@ -4,12 +4,12 @@ use yeesoft\helpers\Html;
 use yeesoft\media\assets\MediaAsset;
 use yeesoft\media\models\Album;
 use yeesoft\models\User;
+use yii\grid\GridViewAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
-use yii\grid\GridViewAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel yeesoft\media\models\Media */
@@ -115,8 +115,8 @@ GridViewAsset::register($this);
 
 <?php
 
-    //Init AJAX filter submit
-    $options = '{"filterUrl":"' . Url::to(['default/index']) . '","filterSelector":"#gallery-grid-filters input, #gallery-grid-filters select"}';
-    $this->registerJs("jQuery('#gallery').yiiGridView($options);");
+//Init AJAX filter submit
+$options = '{"filterUrl":"' . Url::to(['default/index']) . '","filterSelector":"#gallery-grid-filters input, #gallery-grid-filters select"}';
+$this->registerJs("jQuery('#gallery').yiiGridView($options);");
 
 ?>
