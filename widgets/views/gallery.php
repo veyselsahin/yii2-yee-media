@@ -44,7 +44,7 @@ GridViewAsset::register($this);
                         </td>
                         <td style="width: auto;">
                             <?= $form->field($searchModel, 'created_at')
-                                ->widget(DatePicker::class, [
+                                ->widget(DatePicker::className(), [
                                     'dateFormat' => 'yyyy-MM-dd',
                                     'options' => [
                                         'placeholder' => $searchModel->attributeLabels()['created_at'],

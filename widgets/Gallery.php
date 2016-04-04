@@ -27,7 +27,7 @@ class Gallery extends \yii\base\Widget
         $modelClass = $this->modelClass;
         $searchModel = $this->modelSearchClass ? new $this->modelSearchClass : null;
 
-        $restrictAccess = (YeeHelper::isImplemented($modelClass, OwnerAccess::class)
+        $restrictAccess = (YeeHelper::isImplemented($modelClass, OwnerAccess::CLASSNAME)
             && !User::hasPermission($modelClass::getFullAccessPermission()));
 
         $searchName = StringHelper::basename($searchModel::className());
