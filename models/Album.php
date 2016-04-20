@@ -104,6 +104,14 @@ class Album extends ActiveRecord implements OwnerAccess
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getMedia()
+    {
+        return $this->hasMany(Media::className(), ['album_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
