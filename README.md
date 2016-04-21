@@ -44,6 +44,7 @@ Configuration
             'basePath' => '@frontend/web', // Base web directory url
             'uploadPath' => 'uploads', // Path for uploaded files in web directory
         ],
+        //'allowedFileTypes' => ['image/gif', 'image/jpeg', 'image/png'], //allowed for upload file types
     ],
 ],
 ```

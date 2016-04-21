@@ -37,6 +37,7 @@ use yii\web\UploadedFile;
 class Media extends ActiveRecord implements OwnerAccess
 {
     public $file;
+    
     public static $imageFileTypes = ['image/gif', 'image/jpeg', 'image/png'];
 
     /**
@@ -152,6 +153,12 @@ class Media extends ActiveRecord implements OwnerAccess
 
         // get file instance
         $this->file = UploadedFile::getInstance($this, 'file');
+        
+        $allowedFileTypes = Yii::$app->getModule('media')->allowedFileTypes;
+        if(!empty($allowedFileTypes) && is_array($allowedFileTypes) && !in_array($this->file->type, $allowedFileTypes)){
+            throw new \Exception(Yii::t('yee/media', 'Sorry, [{filetype}] file type is not permitted!',['filetype' => $this->file->type]));
+        }
+        
         //if a file with the same name already exist append a number
         $counter = 0;
         do {

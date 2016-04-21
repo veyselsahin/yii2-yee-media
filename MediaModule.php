@@ -21,6 +21,15 @@ class MediaModule extends \yii\base\Module
 
     public $controllerNamespace = 'yeesoft\media\controllers';
 
+    
+    /**
+     * Allowed for uploading file types. All file types will be allowed 
+     * if this parameter is not set or is empty.
+     * 
+     * @var array 
+     */
+    public $allowedFileTypes;
+    
     /**
      *  Set true if you want to rename files if the name is already in use
      * @var bolean

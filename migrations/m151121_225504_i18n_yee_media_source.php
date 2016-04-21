@@ -44,6 +44,7 @@ class m151121_225504_i18n_yee_media_source extends SourceMessagesMigration
             'Please, select file to view details.' => 1,
             'Select image size' => 1,
             'Small size' => 1,
+            'Sorry, [{filetype}] file type is not permitted!' => 1,
             'Start upload' => 1,
             'Thumbnails settings' => 1,
             'Thumbnails sizes has been resized successfully!' => 1,

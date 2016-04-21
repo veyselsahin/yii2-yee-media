@@ -70,7 +70,16 @@ class ManageController extends BaseController
         $model = new Media();
         $routes = $this->module->routes;
         $rename = $this->module->rename;
-        $model->saveUploadedFile($routes, $rename);
+        
+        try {
+            $model->saveUploadedFile($routes, $rename);
+        } catch (\Exception $exc) {
+            $response['files'][] = [
+                'error' => $exc->getMessage()
+            ];
+            return $response;
+        }
+
         $bundle = MediaAsset::register($this->view);
 
         if ($model->isImage()) {
