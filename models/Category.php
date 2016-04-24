@@ -42,7 +42,9 @@ class Category extends ActiveRecord implements OwnerAccess
     public function init()
     {
         parent::init();
-        $this->visible = 1;
+        if ($this->className() == Category::className()) {
+            $this->visible = 1;
+        }
     }
 
     /**

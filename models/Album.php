@@ -43,7 +43,9 @@ class Album extends ActiveRecord implements OwnerAccess
     public function init()
     {
         parent::init();
-        $this->visible = 1;
+        if ($this->className() == Album::className()) {
+            $this->visible = 1;
+        }
     }
 
     /**

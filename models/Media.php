@@ -138,11 +138,11 @@ class Media extends ActiveRecord implements OwnerAccess
      * @param array $routes routes from module settings
      * @return bool
      */
-    public function saveUploadedFile(array $routes, $rename = false)
+    public function saveUploadedFile(array $routes, $rename = false, $allowedFileTypes = null)
     {
         $year = date('Y', time());
         $month = date('m', time());
-        $structure = "$routes[baseUrl]/$routes[uploadPath]/$year/$month";
+        $structure = "{$routes['baseUrl']}/{$routes['uploadPath']}/$year/$month";
         $basePath = Yii::getAlias($routes['basePath']);
         $absolutePath = "$basePath/$structure";
 
@@ -153,8 +153,11 @@ class Media extends ActiveRecord implements OwnerAccess
 
         // get file instance
         $this->file = UploadedFile::getInstance($this, 'file');
+
+        if($allowedFileTypes === null){
+            $allowedFileTypes = Yii::$app->getModule('media')->allowedFileTypes;
+        }
         
-        $allowedFileTypes = Yii::$app->getModule('media')->allowedFileTypes;
         if(!empty($allowedFileTypes) && is_array($allowedFileTypes) && !in_array($this->file->type, $allowedFileTypes)){
             throw new \Exception(Yii::t('yee/media', 'Sorry, [{filetype}] file type is not permitted!',['filetype' => $this->file->type]));
         }

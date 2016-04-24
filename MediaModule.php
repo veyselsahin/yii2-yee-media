@@ -7,6 +7,9 @@
 
 namespace yeesoft\media;
 
+use yii\helpers\ArrayHelper;
+use Yii;
+
 /**
  * Media Module For Yee CMS
  *
@@ -21,7 +24,7 @@ class MediaModule extends \yii\base\Module
 
     public $controllerNamespace = 'yeesoft\media\controllers';
 
-    
+
     /**
      * Allowed for uploading file types. All file types will be allowed 
      * if this parameter is not set or is empty.
@@ -29,7 +32,7 @@ class MediaModule extends \yii\base\Module
      * @var array 
      */
     public $allowedFileTypes;
-    
+
     /**
      *  Set true if you want to rename files if the name is already in use
      * @var bolean
@@ -43,39 +46,77 @@ class MediaModule extends \yii\base\Module
     public $autoUpload = false;
 
     /**
-     * @var array upload routes
+     * Upload routes
+     *
+     * Example:
+     * ~~~
+     * [
+     *    // base absolute path to web directory
+     *    'baseUrl' => '',
+     *    // base web directory url
+     *    'basePath' => '@frontend/web', //@webroot
+     *    // path for uploaded files in web directory
+     *    'uploadPath' => 'uploads',
+     * ]
+     * ~~~
+     *
+     * @var array 
      */
-    public $routes = [
-        // base absolute path to web directory
-        'baseUrl' => '',
-        // base web directory url
-        'basePath' => '@webroot',
-        // path for uploaded files in web directory
-        'uploadPath' => 'uploads',
-    ];
+    public $routes;
 
     /**
      * @var array thumbnails info
      */
-    public $thumbs = [
-        'small' => [
-            'name' => 'Small size',
-            'size' => [120, 80],
-        ],
-        'medium' => [
-            'name' => 'Medium size',
-            'size' => [400, 300],
-        ],
-        'large' => [
-            'name' => 'Large size',
-            'size' => [800, 600],
-        ],
-    ];
+    public $thumbs;
 
     /**
      * @var array default thumbnail size, using in media view.
      */
     private static $defaultThumbSize = [128, 128];
+
+    public function init()
+    {
+        parent::init();
+
+        // Init routes
+        $routesLocal  = (is_array($this->routes)) ? $this->routes : [];
+        $routesParams = (isset(Yii::$app->params['mediaRoutes']) && is_array(Yii::$app->params['mediaRoutes'])) ? Yii::$app->params['mediaRoutes'] : [];
+        $this->routes = ArrayHelper::merge($routesParams, $routesLocal);
+
+        if (!isset($this->routes['baseUrl'])) {
+            $this->routes['baseUrl'] = '';
+        }
+
+        if (!isset($this->routes['basePath'])) {
+            $this->routes['basePath'] = '@frontend/web';
+        }
+
+        if (!isset($this->routes['uploadPath'])) {
+            $this->routes['uploadPath'] = 'uploads';
+        }
+
+        $thumbsLocal  = (is_array($this->thumbs)) ? $this->thumbs : [];
+        $thumbsParams = (isset(Yii::$app->params['mediaThumbs']) && is_array(Yii::$app->params['mediaThumbs'])) ? Yii::$app->params['mediaThumbs'] : [];
+        $this->thumbs = ArrayHelper::merge($thumbsParams, $thumbsLocal);
+
+        //Init thumbs sizes
+        if (empty($this->thumbs)) {
+            $this->thumbs = [
+                'small' => [
+                    'name' => 'Small size',
+                    'size' => [120, 80],
+                ],
+                'medium' => [
+                    'name' => 'Medium size',
+                    'size' => [400, 300],
+                ],
+                'large' => [
+                    'name' => 'Large size',
+                    'size' => [800, 600],
+                ],
+            ];
+        }
+    }
 
     /**
      * @return array default thumbnail size. Using in media view.
