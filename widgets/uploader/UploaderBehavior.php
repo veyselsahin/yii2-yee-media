@@ -207,4 +207,16 @@ class UploaderBehavior extends Behavior
         return $this->attribute;
     }
 
+    /**
+     * @return string the attribute name
+     */
+    public function getMediaUploads()
+    {
+        if (!$this->owner->isNewRecord) {
+            return MediaUpload::getAll($this->ownerClassName, $this->owner->primaryKey);
+        }
+
+        return [];
+    }
+
 }
