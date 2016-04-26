@@ -70,7 +70,7 @@ class ManageController extends BaseController
         $model = new Media();
         $routes = $this->module->routes;
         $rename = $this->module->rename;
-        
+
         try {
             $model->saveUploadedFile($routes, $rename);
         } catch (\Exception $exc) {

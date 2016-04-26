@@ -13,12 +13,10 @@
         <div class="size">{%=o.formatFileSize(file.size)%}</div>
         <div class="actions">
             {% if (file.deleteUrl) { %}
-                <i class="fa fa-lg fa-close delete" title="Click to remove this item" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}></i>
+                <i class="fa fa-lg fa-close delete" title="Click to remove this item" data-id="{%=file.id%}" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}></i>
             {% } %}
         </div>
     </div>
 {% } %}
-
-
 
 </script>
