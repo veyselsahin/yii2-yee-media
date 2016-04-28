@@ -53,7 +53,7 @@ class m150628_124401_create_media_table extends Migration
             'KEY `media_album_slug` (`slug`)',
             'KEY `media_album_category_id` (`category_id`)',
             'KEY `media_album_visible` (`visible`)',
-            'CONSTRAINT `fk_album_category_id` FOREIGN KEY (`category_id`) REFERENCES `media_category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE',
+            'CONSTRAINT `fk_album_category` FOREIGN KEY (`category_id`) REFERENCES `media_category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE',
             'CONSTRAINT `fk_media_album_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE',
             'CONSTRAINT `fk_media_album_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE',
         ], $tableOptions);
@@ -116,11 +116,11 @@ class m150628_124401_create_media_table extends Migration
 
         $this->dropForeignKey('fk_album_category', 'media_album');
 
+        $this->dropTable('media_lang');
+        $this->dropTable('media');
         $this->dropTable('media_album_lang');
         $this->dropTable('media_album');
         $this->dropTable('media_category_lang');
         $this->dropTable('media_category');
-        $this->dropTable('media_lang');
-        $this->dropTable('media');
     }
 }
