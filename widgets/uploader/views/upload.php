@@ -10,13 +10,5 @@
         </div>
     </div>
 {% } %}
+
 </script>
-
-<?php
-/**
- * @var $this \yii\web\View
- */
-$this->registerCss("
-
-");
-?>

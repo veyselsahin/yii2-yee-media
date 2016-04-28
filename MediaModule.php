@@ -7,8 +7,8 @@
 
 namespace yeesoft\media;
 
-use yii\helpers\ArrayHelper;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * Media Module For Yee CMS
@@ -26,10 +26,10 @@ class MediaModule extends \yii\base\Module
 
 
     /**
-     * Allowed for uploading file types. All file types will be allowed 
+     * Allowed for uploading file types. All file types will be allowed
      * if this parameter is not set or is empty.
-     * 
-     * @var array 
+     *
+     * @var array
      */
     public $allowedFileTypes;
 
@@ -60,7 +60,7 @@ class MediaModule extends \yii\base\Module
      * ]
      * ~~~
      *
-     * @var array 
+     * @var array
      */
     public $routes;
 
@@ -79,7 +79,7 @@ class MediaModule extends \yii\base\Module
         parent::init();
 
         // Init routes
-        $routesLocal  = (is_array($this->routes)) ? $this->routes : [];
+        $routesLocal = (is_array($this->routes)) ? $this->routes : [];
         $routesParams = (isset(Yii::$app->params['mediaRoutes']) && is_array(Yii::$app->params['mediaRoutes'])) ? Yii::$app->params['mediaRoutes'] : [];
         $this->routes = ArrayHelper::merge($routesParams, $routesLocal);
 
@@ -95,7 +95,7 @@ class MediaModule extends \yii\base\Module
             $this->routes['uploadPath'] = 'uploads';
         }
 
-        $thumbsLocal  = (is_array($this->thumbs)) ? $this->thumbs : [];
+        $thumbsLocal = (is_array($this->thumbs)) ? $this->thumbs : [];
         $thumbsParams = (isset(Yii::$app->params['mediaThumbs']) && is_array(Yii::$app->params['mediaThumbs'])) ? Yii::$app->params['mediaThumbs'] : [];
         $this->thumbs = ArrayHelper::merge($thumbsParams, $thumbsLocal);
 

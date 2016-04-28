@@ -4,6 +4,7 @@ namespace yeesoft\media\widgets\uploader;
 
 use yeesoft\media\assets\MediaAsset;
 use yeesoft\media\models\Media;
+use yeesoft\media\models\MediaUpload;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -12,7 +13,8 @@ use yii\web\Response;
 
 abstract class UploaderController extends \yii\web\Controller
 {
-    public $modelClass           = 'yeesoft\media\models\Media';
+
+    public $modelClass = 'yeesoft\media\models\Media';
     public $enableCsrfValidation = false;
 
     /**
@@ -52,7 +54,7 @@ abstract class UploaderController extends \yii\web\Controller
      *
      * @var boolean
      */
-    public $rename           = true;
+    public $rename = true;
 
     /**
      * Id of default album ID for uploaded file by users.
@@ -65,13 +67,14 @@ abstract class UploaderController extends \yii\web\Controller
     public function behaviors()
     {
         return ArrayHelper::merge(parent::behaviors(), [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['post'],
-                    //'upload' => ['post'],
-                    ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                    'upload' => ['post'],
+                    'load' => ['post'],
                 ],
+            ],
         ]);
     }
 
@@ -80,7 +83,7 @@ abstract class UploaderController extends \yii\web\Controller
         parent::init();
 
         // Init routes
-        $routesLocal  = (is_array($this->routes)) ? $this->routes : [];
+        $routesLocal = (is_array($this->routes)) ? $this->routes : [];
         $routesParams = (isset(Yii::$app->params['mediaRoutes']) && is_array(Yii::$app->params['mediaRoutes'])) ? Yii::$app->params['mediaRoutes'] : [];
         $this->routes = ArrayHelper::merge($routesParams, $routesLocal);
 
@@ -96,7 +99,7 @@ abstract class UploaderController extends \yii\web\Controller
             $this->routes['uploadPath'] = 'uploads';
         }
 
-        $thumbsLocal  = (is_array($this->thumbs)) ? $this->thumbs : [];
+        $thumbsLocal = (is_array($this->thumbs)) ? $this->thumbs : [];
         $thumbsParams = (isset(Yii::$app->params['mediaThumbs']) && is_array(Yii::$app->params['mediaThumbs'])) ? Yii::$app->params['mediaThumbs'] : [];
         $this->thumbs = ArrayHelper::merge($thumbsParams, $thumbsLocal);
 
@@ -120,7 +123,7 @@ abstract class UploaderController extends \yii\web\Controller
 
         //Set up defaukt album ID
         if (isset(Yii::$app->params['uploaderAlbumId'])) {
-            $this->defaultAlbumId = (int) Yii::$app->params['uploaderAlbumId'];
+            $this->defaultAlbumId = (int)Yii::$app->params['uploaderAlbumId'];
         }
     }
 
@@ -164,10 +167,11 @@ abstract class UploaderController extends \yii\web\Controller
         $response['files'][] = [
             'url' => $model->url,
             'thumbnailUrl' => $model->getDefaultThumbUrl($bundle->baseUrl),
+            'id' => $model->primaryKey,
             'name' => $model->filename,
             'type' => $model->type,
             'size' => $model->file->size,
-            'deleteUrl' => Url::to(['/uploader/delete', 'id' => $model->id]),
+            'deleteUrl' => Url::to(['delete', 'id' => $model->id]),
             'deleteType' => 'POST',
         ];
 
@@ -193,8 +197,8 @@ abstract class UploaderController extends \yii\web\Controller
          * @var yeesoft\media\models\Media
          */
         $model = Media::findOne([
-                "{$tableName}.id" => $id,
-                "{$tableName}.created_by" => Yii::$app->user->identity->id,
+            "{$tableName}.id" => $id,
+            "{$tableName}.created_by" => Yii::$app->user->identity->id,
         ]);
 
         if (!$model) {
@@ -210,4 +214,40 @@ abstract class UploaderController extends \yii\web\Controller
 
         return ['success' => 'true'];
     }
+
+    public function actionLoad()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if (Yii::$app->user->isGuest) {
+            $response['files'][] = [
+                'error' => 'Please, authorise to upload files.',
+            ];
+            return $response;
+        }
+
+        $bundle = MediaAsset::register($this->view);
+
+        $ownerClass = urldecode(Yii::$app->getRequest()->post('owner_class'));
+        $ownerId = Yii::$app->getRequest()->post('owner_id');
+
+        $uploads = MediaUpload::getAll($ownerClass, $ownerId);
+
+        foreach ($uploads as $upload) {
+            $model = $upload->media;
+            $response['files'][] = [
+                'url' => $model->url,
+                'thumbnailUrl' => $model->getDefaultThumbUrl($bundle->baseUrl),
+                'id' => $model->primaryKey,
+                'name' => $model->filename,
+                'type' => $model->type,
+                'size' => $model->size,
+                'deleteUrl' => Url::to(['delete', 'id' => $model->id]),
+                'deleteType' => 'POST',
+            ];
+        }
+
+        return $response;
+    }
+
 }
