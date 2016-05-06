@@ -66,9 +66,9 @@ class MediaUpload extends \yii\db\ActiveRecord
 
     public static function getAll($ownerClass, $ownerId)
     {
+        
         return self::find()
-            ->where(['owner_class' => $ownerClass])
-            ->where(['owner_id' => $ownerId])
+            ->where(['owner_class' => $ownerClass, 'owner_id' => $ownerId])
             //->joinWith('media')
             ->all();
 
