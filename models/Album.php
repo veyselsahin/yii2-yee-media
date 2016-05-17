@@ -9,7 +9,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
+use yeesoft\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -34,7 +34,7 @@ class Album extends ActiveRecord implements OwnerAccess
      */
     public static function tableName()
     {
-        return 'media_album';
+        return '{{%media_album}}';
     }
 
     /**
@@ -98,7 +98,7 @@ class Album extends ActiveRecord implements OwnerAccess
             'description' => Yii::t('yee', 'Description'),
             'created_by' => Yii::t('yee', 'Created By'),
             'updated_by' => Yii::t('yee', 'Updated By'),
-            'created_at' => Yii::t('yee', 'Created'), '',
+            'created_at' => Yii::t('yee', 'Created'),
             'updated_at' => Yii::t('yee', 'Updated'),
         ];
     }

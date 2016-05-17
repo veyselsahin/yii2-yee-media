@@ -20,7 +20,7 @@ use Yii;
  *
  * @property Media $media
  */
-class MediaUpload extends \yii\db\ActiveRecord
+class MediaUpload extends \yeesoft\db\ActiveRecord
 {
     /**
      * @inheritdoc

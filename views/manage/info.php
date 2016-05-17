@@ -1,7 +1,6 @@
 <?php
 
 use yeesoft\helpers\Html;
-use yeesoft\helpers\LanguageHelper;
 use yeesoft\media\assets\MediaAsset;
 use yeesoft\media\models\Album;
 use yeesoft\models\User;
@@ -11,7 +10,7 @@ use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model yeesoft\media\models\Media */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form yeesoft\widgets\ActiveForm */
 
 $bundle = MediaAsset::register($this);
 $mode = Yii::$app->getRequest()->get('mode', 'normal');
@@ -26,7 +25,7 @@ $mode = Yii::$app->getRequest()->get('mode', 'normal');
     </div><br/>
 <?php endif; ?>
 
-<?php if (LanguageHelper::isMultilingual($model) && ($mode !== 'modal')): ?>
+<?php if ($model->isMultilingual() && ($mode !== 'modal')): ?>
     <?= LanguagePills::widget() ?>
 <?php endif; ?>
     <div class="clearfix"></div>

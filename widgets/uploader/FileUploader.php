@@ -28,7 +28,7 @@ class FileUploader extends FileUploadUI
     /**
      * Instance of uploaded file model
      *
-     * @var \yii\db\ActiveRecord
+     * @var \yeesoft\db\ActiveRecord
      */
     public $model;
 
@@ -36,7 +36,7 @@ class FileUploader extends FileUploadUI
      * Istance of owner model. All uploaded
      * images will be attached to this model.
      *
-     * @var \yii\db\ActiveRecord
+     * @var \yeesoft\db\ActiveRecord
      */
     public $ownerModel;
 

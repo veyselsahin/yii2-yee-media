@@ -7,7 +7,7 @@ use yeesoft\media\models\MediaUpload;
 use Yii;
 use yii\base\Behavior;
 use yii\base\UnknownPropertyException;
-use yii\db\ActiveRecord;
+use yeesoft\db\ActiveRecord;
 use yii\validators\Validator;
 
 /**

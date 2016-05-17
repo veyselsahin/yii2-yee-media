@@ -10,7 +10,7 @@ use yeesoft\models\User;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
+use yeesoft\db\ActiveRecord;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\imagine\Image as Imagine;
@@ -44,7 +44,7 @@ class Media extends ActiveRecord implements OwnerAccess
      */
     public static function tableName()
     {
-        return 'media';
+        return '{{%media}}';
     }
 
     /**
@@ -419,7 +419,7 @@ class Media extends ActiveRecord implements OwnerAccess
     /**
      * Search models by file types
      * @param array $types file types
-     * @return array|\yii\db\ActiveRecord[]
+     * @return array|\yeesoft\db\ActiveRecord[]
      */
     public static function findByTypes(array $types)
     {

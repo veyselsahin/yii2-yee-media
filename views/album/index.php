@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'actions' => [Url::to(['bulk-delete']) => Yii::t('yee', 'Delete')],
                 ],
                 'columns' => [
-                    ['class' => 'yii\grid\CheckboxColumn', 'options' => ['style' => 'width:10px']],
+                    ['class' => 'yeesoft\grid\CheckboxColumn', 'options' => ['style' => 'width:10px']],
                     [
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
                         'controller' => '/media/album',
@@ -63,7 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->category->title;
                         },
                         'format' => 'raw',
-                        'filterInputOptions' => [],
                     ],
                     [
                         'class' => 'yeesoft\grid\columns\StatusColumn',
