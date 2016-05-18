@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'category_id',
                         'filter' => Category::getCategories(true),
                         'value' => function (Album $model) {
-                            return $model->category->title;
+                            return ($model->category instanceof Category) ? $model->category->title : Yii::t('yii', '(not set)');
                         },
                         'format' => 'raw',
                     ],
