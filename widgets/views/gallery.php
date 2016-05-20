@@ -27,7 +27,7 @@ GridViewAsset::register($this);
                 <?php
                 $form = ActiveForm::begin([
                     'id' => 'gallery',
-                    'action' => Url::to(['/media/manage/index']),
+                    'action' => Url::to(($mode == 'modal') ? ['/media/manage/index'] : ['/media/default/index']),
                     'method' => 'get',
                     'class' => 'gridview-filter-form',
                     'fieldConfig' => ['template' => "{input}\n{hint}\n{error}"],
