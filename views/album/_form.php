@@ -45,7 +45,7 @@ use yeesoft\widgets\LanguagePills;
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="record-info">
-                        <?= $form->field($model, 'category_id')->dropDownList(Category::getCategories(true), ['prompt' => '', 'class' => '']) ?>
+                        <?= $form->field($model, 'category_id')->dropDownList(Category::getCategories(true), ['prompt' => '']) ?>
 
                         <?= $form->field($model, 'visible')->checkbox() ?>
 
