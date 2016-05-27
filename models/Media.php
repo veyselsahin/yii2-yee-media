@@ -465,4 +465,9 @@ class Media extends ActiveRecord implements OwnerAccess
     {
         return 'created_by';
     }
+
+    public function getAlbum()
+    {
+        return $this->hasOne(Album::className(), ['id' => 'album_id']);
+    }
 }
