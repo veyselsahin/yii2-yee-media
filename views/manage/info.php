@@ -32,7 +32,7 @@ $mode = Yii::$app->getRequest()->get('mode', 'normal');
 
 <?php if ($mode !== 'modal'): ?>
     <div class="clearfix">
-        <?= Html::img($model->getDefaultThumbUrl($bundle->baseUrl)) ?>
+        <a target="_blank" href="<?= $model->getThumbUrl('original') ?>"><?= Html::img($model->getDefaultThumbUrl($bundle->baseUrl)) ?></a>
 
         <ul class="detail">
             <li><b><?= Yii::t('yee', 'Author') ?>

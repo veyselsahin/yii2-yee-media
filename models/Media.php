@@ -177,6 +177,8 @@ class Media extends ActiveRecord implements OwnerAccess
         // save original uploaded file
         $this->file->saveAs("$absolutePath/$filename");
         $this->filename = $filename;
+        $this->title = $filename;
+        $this->alt = $filename;
         $this->type = $this->file->type;
         $this->size = $this->file->size;
         $this->url = $url;
@@ -462,5 +464,10 @@ class Media extends ActiveRecord implements OwnerAccess
     public static function getOwnerField()
     {
         return 'created_by';
+    }
+
+    public function getAlbum()
+    {
+        return $this->hasOne(Album::className(), ['id' => 'album_id']);
     }
 }
