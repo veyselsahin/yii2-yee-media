@@ -17,6 +17,8 @@
 .list-view .items .item a img {
     opacity: .9;
     border: 1px solid #bbb;
+    width: 128px;
+    height: 128px;
 }
 
 .modal-media-frame .list-view .items .item a img {
