@@ -10,12 +10,20 @@ $context = $this->context;
 $ownerModel = urlencode($context->ownerModel->className());
 $formSelector = '#' . $context->options['id'];
 
+$jsUnload = ''; 
+if($context->bindBeforeUnload){
+    $jsUnload = "$(window).bind('beforeunload', function () {
+        return 'You have unsaved changes on this page. Are you sure you want to leave this page?';
+    });";
+}
+
 $jsBind = <<<JS
     $('{$formSelector}')
     .bind('fileuploaddone', function (e, data) {
         if(data.textStatus === 'success'){
             var input = "<input type='hidden' name='{$context->inputName}[]' value='" + data.result.files[0].id + "'>";
             $("{$context->inputContainer}").append(input);
+            {$jsUnload}
         }
     }).bind('fileuploaddestroy', function (e, data) {
         $("{$context->inputContainer}").find("input[value='" + data.id + "']").remove();

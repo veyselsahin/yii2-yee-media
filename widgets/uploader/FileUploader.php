@@ -62,6 +62,21 @@ class FileUploader extends FileUploadUI
      * @var string
      */
     public $inputName;
+    
+    /**
+     * Bind `beforeunload` event to window DOM element to prevent leaving form 
+     * if there are unsaved images. Also you should add javascript code to
+     * submit button to remove `beforeunload` event before saving:
+     * 
+     * ```
+     * $('.btn').click(function(){
+     *   $(window).unbind('beforeunload');
+     * });
+     * ```
+     *
+     * @var boolean
+     */
+    public $bindBeforeUnload = false;
 
     /**
      * Form view template.
