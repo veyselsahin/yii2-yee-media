@@ -29,8 +29,9 @@ class TinyMce extends InputWidget
      */
     public $clientOptions = [
         'menubar' => false,
-        'height' => 300,
+        'height' => 400,
         'image_dimensions' => true,
+        'entity_encoding' => 'raw',
         'plugins' => [
             'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code contextmenu table wordcount pagebreak',
         ],
