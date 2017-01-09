@@ -4,13 +4,13 @@ namespace yeesoft\media\models;
 
 use omgdef\multilingual\MultilingualQuery;
 use yeesoft\behaviors\MultilingualBehavior;
+use yeesoft\db\ActiveRecord;
 use yeesoft\media\MediaModule;
 use yeesoft\models\OwnerAccess;
 use yeesoft\models\User;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yeesoft\db\ActiveRecord;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\imagine\Image as Imagine;
@@ -146,27 +146,32 @@ class Media extends ActiveRecord implements OwnerAccess
         $absolutePath = "$basePath/$structure";
 
         // create actual directory structure "yyyy/mm"
-        if (!file_exists($absolutePath)) {
+        if (!file_exists($absolutePath))
+        {
             mkdir($absolutePath, 0777, true);
         }
 
         // get file instance
         $this->file = UploadedFile::getInstance($this, 'file');
 
-        if ($allowedFileTypes === null) {
+        if ($allowedFileTypes === null)
+        {
             $allowedFileTypes = Yii::$app->getModule('media')->allowedFileTypes;
         }
 
-        if (!empty($allowedFileTypes) && is_array($allowedFileTypes) && !in_array($this->file->type, $allowedFileTypes)) {
+        if (!empty($allowedFileTypes) && is_array($allowedFileTypes) && !in_array($this->file->type, $allowedFileTypes))
+        {
             throw new \Exception(Yii::t('yee/media', 'Sorry, [{filetype}] file type is not permitted!', ['filetype' => $this->file->type]));
         }
 
         //if a file with the same name already exist append a number
         $counter = 0;
-        do {
+        do
+        {
             if ($counter == 0)
                 $filename = Inflector::slug($this->file->baseName) . '.' . $this->file->extension;
-            else {
+            else
+            {
                 //if we don't want to rename we finish the call here
                 if ($rename == false) return false;
                 $filename = Inflector::slug($this->file->baseName) . $counter . '.' . $this->file->extension;
@@ -204,7 +209,8 @@ class Media extends ActiveRecord implements OwnerAccess
 
         Imagine::$driver = [Imagine::DRIVER_GD2, Imagine::DRIVER_GMAGICK, Imagine::DRIVER_IMAGICK];
 
-        foreach ($presets as $alias => $preset) {
+        foreach ($presets as $alias => $preset)
+        {
             $width = $preset['size'][0];
             $height = $preset['size'][1];
 
@@ -261,7 +267,8 @@ class Media extends ActiveRecord implements OwnerAccess
      */
     public function getDefaultThumbUrl($baseUrl = '')
     {
-        if ($this->isImage()) {
+        if ($this->isImage())
+        {
             $size = MediaModule::getDefaultThumbSize();
             $originalFile = pathinfo($this->url);
             $dirname = $originalFile['dirname'];
@@ -292,7 +299,8 @@ class Media extends ActiveRecord implements OwnerAccess
     {
         $thumbs = $this->getThumbs();
 
-        if ($alias === 'original') {
+        if ($alias === 'original')
+        {
             return $this->url;
         }
 
@@ -310,11 +318,13 @@ class Media extends ActiveRecord implements OwnerAccess
     {
         $url = $this->getThumbUrl($alias);
 
-        if (empty($url)) {
+        if (empty($url))
+        {
             return '';
         }
 
-        if (empty($options['alt'])) {
+        if (empty($options['alt']))
+        {
             $options['alt'] = $this->alt;
         }
 
@@ -330,7 +340,8 @@ class Media extends ActiveRecord implements OwnerAccess
         $thumbs = $this->getThumbs();
         $list = [];
 
-        foreach ($thumbs as $alias => $url) {
+        foreach ($thumbs as $alias => $url)
+        {
             $preset = $module->thumbs[$alias];
             $list[$url] = Yii::t('yee/media', $preset['name']) . ' ' . $preset['size'][0] . ' × ' . $preset['size'][1];
         }
@@ -349,11 +360,20 @@ class Media extends ActiveRecord implements OwnerAccess
     {
         $basePath = Yii::getAlias($routes['basePath']);
 
-        foreach ($this->getThumbs() as $thumbUrl) {
-            unlink("$basePath/$thumbUrl");
-        }
 
-        unlink("$basePath/{$this->getDefaultThumbUrl()}");
+        $thums = $this->getThumbs();
+        if (isset($thums) && is_array($thums))
+        {
+
+            foreach ($thums as $thumbUrl)
+            {
+                unlink("$basePath/$thumbUrl");
+            }
+
+        }
+        if(file_exists("$basePath/{$this->getDefaultThumbUrl()}")){
+            unlink("$basePath/{$this->getDefaultThumbUrl()}");
+        }
     }
 
     /**
